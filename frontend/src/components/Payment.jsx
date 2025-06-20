@@ -6,6 +6,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { ShopContext } from '../context/show-context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../context/UserContext';
+
 
 const Payment = () => {
     const [debitShow, setdebitShow] = useState(false)
@@ -14,25 +16,42 @@ const Payment = () => {
     const [COD, setCOD] = useState(false)
     const [netBanking, setnetBanking] = useState(false)
     const [EMI, setEMI] = useState(false)
+    const [PowerCard, setPowerCard] = useState(false)
+    const { currentUserId } = useContext(UserContext);
 
     const [paymentMethod, setPaymentMethod] = useState('None');
     const [recommmendedPaymentMethod, setPayment] = useState('None');
     const { cartItems , addToCart, removeFromCart, setCartItems, clear } = useContext(ShopContext);
+    const [selectedCard, setSelectedCard] = useState('')
+    const [availableDiscount, setAvailableDiscount] = useState(0)
+
+    const cardOptions = [
+    { name: "HDFC Debit Card", discount: 5 },
+    { name: "HDFC Credit Card", discount: 10 },
+    { name: "SBI Debit Card", discount: 6 },
+    { name: "SBI Credit Card", discount: 8 },
+    { name: "ICICI Debit Card", discount: 6 },
+    { name: "ICICI Credit Card", discount: 12 },
+    { name: "Axis Debit Card", discount: 7 },
+    { name: "Axis Credit Card", discount: 11 }
+    ];
+
+
 
     const location = useLocation();
 
     const totalPrice = location.state.totalPrice;
 
-    useEffect(() => {
-        axios.get("http://localhost:5000/predict")
-        .then((response) => {
-            setPayment(response.data['recommended_payment_method']);
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    },[]);
+    // useEffect(() => {
+    //     axios.get("http://localhost:5000/predict")
+    //     .then((response) => {
+    //         setPayment(response.data['recommended_payment_method']);
+    //         console.log(response);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+    // },[]);
 
     const handledebit = () =>{
         setPaymentMethod('Debit Card');
@@ -42,6 +61,7 @@ const Payment = () => {
         setnetBanking(false);
         setEMI(false);
         setUPI(false);
+        setPowerCard(false);
     }
 
     const handleUPI = () =>{
@@ -52,6 +72,7 @@ const Payment = () => {
         setnetBanking(false);
         setEMI(false);
         setdebitShow(false);
+        setPowerCard(false);
     }
 
     const handleEMI = () =>{
@@ -62,6 +83,7 @@ const Payment = () => {
         setnetBanking(false);
         setUPI(false);
         setdebitShow(false);
+        setPowerCard(false);
     }
 
     const handlenetBanking = () =>{
@@ -72,6 +94,7 @@ const Payment = () => {
         setEMI(false);
         setUPI(false);
         setdebitShow(false);
+        setPowerCard(false);
     }
 
     const handleCOD = () =>{
@@ -82,6 +105,7 @@ const Payment = () => {
         setEMI(false);
         setUPI(false);
         setdebitShow(false);
+        setPowerCard(false);
     }
 
     const handleCredit = () =>{
@@ -92,7 +116,58 @@ const Payment = () => {
         setEMI(false);
         setUPI(false);
         setdebitShow(false);
+        setPowerCard(false);
     }
+
+    const handlePowerCard = () => {
+        setPaymentMethod('PowerCard');
+        setPowerCard(!PowerCard);
+        // Reset all other methods
+        setdebitShow(false);
+        setUPI(false);
+        setCredit(false);
+        setCOD(false);
+        setnetBanking(false);
+        setEMI(false);
+    }
+
+    const handleGeneratePowerRequest = () => {
+        const discountAmount = totalPrice * availableDiscount / 100;
+        const userB_payment = parseFloat((totalPrice - discountAmount).toFixed(2));
+        const commission = parseFloat((discountAmount * 0.2).toFixed(2));
+        const serviceFee = parseFloat((discountAmount * 0.05).toFixed(2));
+        const escrowAmount = parseFloat((userB_payment + commission + serviceFee).toFixed(2));
+
+        axios.post("http://localhost:5000/api/powercard/request", {
+            userA: currentUserId,
+            card: selectedCard,
+            productPrice: totalPrice,
+            discount: discountAmount,
+            commission: commission,
+            serviceFee: serviceFee,
+            total: parseFloat((totalPrice - discountAmount).toFixed(2)),   // ✅ for User B
+            fullEscrow: escrowAmount                                    // ✅ for User A
+        })
+        .then((res) => {
+            alert("✅ PowerRequest Created!\nRequest ID: " + res.data.id);
+        })
+        .catch((err) => {
+            console.error(err);
+            alert("❌ Failed to create PowerRequest.");
+        });
+    };
+
+
+
+
+    useEffect(() => {
+        if (selectedCard) {
+            const card = cardOptions.find(option => option.name === selectedCard);
+            if (card) {
+                setAvailableDiscount(card.discount);
+            }
+        }
+    }, [selectedCard]);
 
     const getDefaultCart = () => {
         let cart = {};
@@ -107,6 +182,7 @@ const Payment = () => {
       }, [cartItems]);
 
     const navigate = useNavigate();
+
     const handleCheckout = () =>{
         if( paymentMethod == 'None' ){
             alert('Please select a payment method');
@@ -209,6 +285,120 @@ const Payment = () => {
 
                     </div>
 
+
+                    <div className='border min-h-[40px] flex flex-col gap-2 bg-gray-400 p-2 rounded-md border-black'>
+                        <div className="flex justify-between">
+                            <h2 className="text-lg">PowerCard</h2>
+                            <div className="drop cursor-pointer" onClick={handlePowerCard}>
+                                <img src={drop} alt="" />
+                            </div>
+                        </div>
+
+                        <div className={PowerCard ? "flex flex-col gap-2 mt-2" : 'hidden'}>
+                            {/* Card Selection */}
+                            <div className="flex items-center">
+                                <label className="w-48">Required Card:</label>
+                                <select 
+                                    className="p-2 rounded-md w-[60%]"
+                                    value={selectedCard}
+                                    onChange={(e) => setSelectedCard(e.target.value)}
+                                >
+                                    <option value="">Select a card</option>
+                                    {cardOptions.map((card, index) => (
+                                        <option key={index} value={card.name}>
+                                            {card.name} ({card.discount}% discount)
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Product Price */}
+                            <div className="flex items-center">
+                                <label className="w-48">Product Price:</label>
+                                <input 
+                                    className="p-2 rounded-md w-[60%] bg-gray-200"
+                                    type="text"
+                                    value={`$${totalPrice}`}
+                                    readOnly
+                                />
+                            </div>
+
+                            {/* Available Discount */}
+                            <div className="flex items-center">
+                                <label className="w-48">Available Discount:</label>
+                                <input 
+                                    className="p-2 rounded-md w-[60%] bg-gray-200"
+                                    type="text"
+                                    value={`${availableDiscount}% ($${(totalPrice * availableDiscount / 100).toFixed(2)})`}
+                                    readOnly
+                                />
+                            </div>
+
+                            {/* PowerPartner's Share */}
+                            <div className="flex items-center">
+                                <label className="w-48">PowerPartner's Share:</label>
+                                <input 
+                                    className="p-2 rounded-md w-[60%] bg-gray-200"
+                                    type="text"
+                                    value={`$${(totalPrice * availableDiscount / 100 * 0.2).toFixed(2)}`}
+                                    readOnly
+                                />
+                            </div>
+
+                            {/* Service Charge (5% of discount) */}
+                            <div className="flex items-center">
+                                <label className="w-48">Service Charge (5%):</label>
+                                <input 
+                                    className="p-2 rounded-md w-[60%] bg-gray-200"
+                                    type="text"
+                                    value={`$${(totalPrice * availableDiscount / 100 * 0.05).toFixed(2)}`}
+                                    readOnly
+                                />
+                            </div>
+
+                            {/* What User B Will Pay */}
+                            <div className="flex items-center">
+                            <label className="w-48">PowerPartner Will Pay:</label>
+                            <input 
+                                className="p-2 rounded-md w-[60%] bg-gray-200"
+                                type="text"
+                                value={`$${(totalPrice - (totalPrice * availableDiscount / 100)).toFixed(2)}`}
+                                readOnly
+                            />
+                            </div>
+
+                            {/* Total Escrow to Collect from User A */}
+                            <div className="flex items-center">
+                            <label className="w-48 font-bold">Your Total (Escrow):</label>
+                            <input 
+                                className="p-2 rounded-md w-[60%] bg-yellow-100 font-bold border-2 border-yellow-400"
+                                type="text"
+                                value={`$${(
+                                (totalPrice - totalPrice * availableDiscount / 100) +
+                                (totalPrice * availableDiscount / 100 * 0.2) +
+                                (totalPrice * availableDiscount / 100 * 0.05)
+                                ).toFixed(2)}`}
+                                readOnly
+                            />
+                            </div>
+
+
+                            
+
+                           <div className="w-[108%] flex justify-center mt-2">
+                                <button 
+                                    className="bg-sky-300 hover:bg-sky-400 text-black font-bold py-1.5 px-3 rounded-md text-[0.925rem] leading-tight transition-colors w-40 shadow-sm"
+                                    onClick={handleGeneratePowerRequest}
+
+                                >
+                                    Generate PowerRequest
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                     <div className='border min-h-[40px] flex flex-col bg-gray-400  gap-2 p-2 rounded-md border-black'>
 
                         <div className=" flex justify-between">
@@ -259,27 +449,27 @@ const Payment = () => {
 
             <div className='bought flex flex-col gap-4'>
 
-                {PRODUCTS.map((product) => {
-                   
-                    if (cartItems[product.id] != 0) {
-                    return (
-                        <div className="flex justify-between p-2 rounded-md bg-white">
+            {PRODUCTS.map((product) => {
+            if (cartItems[product.id] !== 0) {
+                return (
+                <div key={product.id} className="flex justify-between p-2 rounded-md bg-white">
+                    <span className="text-lg">{product.name}</span>
+                    <div>
+                    <div className="flex justify-between">
+                        <span>Quantity : </span>
+                        <span>{cartItems[product.id]}</span>
+                    </div>
+                    <div>
+                        <span>Price : </span>
+                        <span>${product.price * cartItems[product.id]}</span>
+                    </div>
+                    </div>
+                </div>
+                );
+            }
+            return null; // return null for non-cart items to avoid warnings
+            })}
 
-                            <span className="text-lg">{product.name}</span>
-                            <div>
-                                <div className="flex justify-between">
-                                    <span>Quantity : </span>
-                                    <span className=""  >{cartItems[product.id]}</span>
-                                </div>
-                                <div className="">
-                                    <span>Price : </span>
-                                    <span>${product.price * cartItems[product.id]}</span>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                    }
-                })}
 
             </div>
 

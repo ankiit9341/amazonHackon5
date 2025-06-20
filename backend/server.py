@@ -11,11 +11,29 @@ import datetime
 from email.message import EmailMessage
 import ssl
 import smtplib
+import uuid
+import time
+from pymongo import MongoClient
+from flask_cors import CORS
+from bson import ObjectId
+from dotenv import load_dotenv
+
+load_dotenv()
+uri = os.getenv("MONGO_URI")
+
+mongo = MongoClient(uri)
+db = mongo["powercardDB"]
+users_collection = db["users"]
+requests_collection = db["requests"]
+escrow_collection = db["escrow"]
+transactions_collection = db["transactions"]
 
 x = datetime.datetime.now()
 
 app = Flask(__name__)
-cors = CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+
+
 
 __amt = None
 __transactionsdf=None
@@ -482,6 +500,224 @@ def checkout():
     else:
         return jsonify({'message' : 'data not recieved'})
 
+powercard_requests = {}
+
+@app.route('/api/powercard/request', methods=['POST'])
+def create_power_request():
+    data = request.json
+    user_id = data.get("userA")
+
+    userA_data = users_collection.find_one({"userId": user_id})
+    if not userA_data:
+        return jsonify({"error": "User A not found"}), 404
+
+    request_id = str(uuid.uuid4())
+
+    request_doc = {
+        "id": request_id,
+        "userA": {
+            "userId": userA_data["userId"],
+            "name": userA_data["name"],
+            "email": userA_data["email"]
+        },
+        "card": data.get("card"),
+        "productPrice": float(data.get("productPrice")),     # 💰 Store full product price
+        "discount": float(data.get("discount")),          # 💸 Discount amount
+        "commission": float(data.get("commission")),         # 🎁 Commission for PowerPartner
+        "serviceFee": float(data.get("serviceFee")),         # 🧾 Platform fee
+        "total": float(data.get("productPrice")) - float(data.get("discount")),  # 👀 What PowerPartner sees
+        "fullEscrow": data.get("fullEscrow"),    # 💵 What User A pays to escrow
+        "status": "open",
+        "created_at": time.time()
+    }
+
+
+    db.requests.insert_one(request_doc)
+
+    return jsonify({"message": "Request created", "request_id": request_id}), 201
+
+
+
+@app.route('/api/powercard/accept/<request_id>', methods=['POST'])
+def accept_request(request_id):
+    data = request.json
+    user_id = data.get("userB")
+
+    userB_data = users_collection.find_one({"userId": user_id})
+    if not userB_data:
+        return jsonify({"error": "User B not found"}), 404
+
+    request_doc = db.requests.find_one({"id": request_id})
+    if not request_doc or request_doc.get("status") != "open":
+        return jsonify({"error": "Request not available"}), 400
+
+    # Update the request with User B details
+    db.requests.update_one(
+        {"id": request_id},
+        {"$set": {
+            "status": "accepted",
+            "userB": {
+                "userId": userB_data["userId"],
+                "name": userB_data["name"],
+                "email": userB_data["email"]
+            },
+            "accepted_at": time.time()
+        }}
+    )
+
+    return jsonify({"message": "Request accepted successfully"}), 200
+
+
+
+@app.route('/api/powercard/pay-escrow/<request_id>', methods=['POST'])
+def escrow_payment(request_id):
+    request_doc = db.requests.find_one({"id": request_id})
+    if not request_doc or request_doc.get("status") != "accepted":
+        return jsonify({"error": "Escrow payment not allowed"}), 400
+
+    userA_id = request_doc["userA"]["userId"]
+    total_amount = request_doc["fullEscrow"]
+
+    userA = db.users.find_one({"userId": userA_id})
+    if not userA or userA["balance"] < total_amount:
+        return jsonify({"error": "Insufficient balance for User A"}), 400
+
+    # 💸 Deduct from User A
+    db.users.update_one(
+        {"userId": userA_id},
+        {"$inc": {"balance": -total_amount}}
+    )
+
+    # 💰 Add to Escrow Fund
+    db.escrow.update_one({}, {"$inc": {"fund": total_amount}})
+
+    # 📝 Update request as paid
+    db.requests.update_one(
+        {"id": request_id},
+        {"$set": {"escrow_paid": True}}
+    )
+
+    # 🧾 Save transaction
+    db.transactions.insert_one({
+        "type": "escrow_payment",
+        "from": userA_id,
+        "amount": total_amount,
+        "request_id": request_id,
+        "timestamp": time.time()
+    })
+
+    return jsonify({"message": "Escrow payment successful"}), 200
+
+
+@app.route('/api/powercard/pay-merchant/<request_id>', methods=['POST'])
+def merchant_payment(request_id):
+    request_doc = db.requests.find_one({"id": request_id})
+    if not request_doc or not request_doc.get("escrow_paid"):
+        return jsonify({"error": "Cannot proceed. Escrow not paid."}), 400
+
+    total = request_doc["total"]
+    commission = request_doc["commission"]
+    userB_id = request_doc["userB"]["userId"]
+
+    # 💰 Subtract from Escrow
+    db.escrow.update_one({}, {"$inc": {"fund": -total}})
+
+    # 💸 Add commission to User B
+    db.users.update_one(
+        {"userId": userB_id},
+        {"$inc": {"balance": commission}}
+    )
+
+    # ✅ Mark request as completed
+    db.requests.update_one(
+        {"id": request_id},
+        {"$set": {"merchant_paid": True, "status": "completed"}}
+    )
+
+    # 🧾 Save transaction
+    db.transactions.insert_one({
+        "type": "merchant_payment",
+        "to": userB_id,
+        "amount": commission,
+        "request_id": request_id,
+        "timestamp": time.time()
+    })
+
+    # 🧹 Remove ObjectId before returning
+    if "_id" in request_doc:
+        request_doc["_id"] = str(request_doc["_id"])
+
+    return jsonify({
+        "message": "Merchant paid. Commission released to User B. Product ships to User A.",
+        "final_status": request_doc
+    }), 200
+
+
+@app.route('/api/escrow/transactions', methods=['GET'])
+def get_escrow_transactions():
+    transactions = list(db.escrowTransactions.find({}, {"_id": 0}))
+    return jsonify(transactions), 200
+
+escrow_data = db.escrow.find_one()
+if not escrow_data:
+    db.escrow.insert_one({ "fund": 0 })  # one-time init
+
+@app.route('/api/powercard/all', methods=['GET'])
+def get_all_requests():
+    requests = list(db.requests.find({}, {"_id": 0}))
+    return jsonify(requests)
+
+@app.route('/api/powercard/escrow', methods=['GET'])
+def get_escrow():
+    escrow = db.escrow.find_one()
+    return jsonify(escrow), 200
+
+@app.route('/api/powercard/transactions', methods=['GET'])
+def all_transactions():
+    txns = list(db.transactions.find({}, {"_id": 0}))
+    return jsonify(txns), 200
+
+
+@app.route('/api/powercard/eligible/<user_id>', methods=['GET'])
+def get_eligible_requests(user_id):
+    user = users_collection.find_one({"userId": user_id})
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    # Normalize the user's card names
+    user_cards_normalized = [c.lower().replace(" card", "").strip() for c in user.get("cards", [])]
+
+    all_requests = db.requests.find({
+        "status": "open",
+        "userA.userId": {"$ne": user_id}
+    })
+
+    eligible_requests = []
+    for req in all_requests:
+        req_card_normalized = req.get("card", "").lower().replace(" card", "").strip()
+        if req_card_normalized in user_cards_normalized:
+            req["_id"] = str(req["_id"])  # Convert ObjectId to string
+            eligible_requests.append(req)
+
+    return jsonify(eligible_requests), 200
+
+
+@app.route("/api/users", methods=["GET"])
+def get_all_users():
+    users = list(db.users.find({}, {"_id": 0}))  # exclude MongoDB _id field
+    return jsonify(users)
+
+@app.route("/api/users", methods=["GET"])
+def get_users():
+    users = list(db.users.find({}, {"_id": 0}))  # exclude MongoDB's _id
+    return jsonify(users), 200
+
+@app.route("/api/powercard/myrequests/<user_id>", methods=["GET"])
+def get_my_requests(user_id):
+    user_requests = list(db.requests.find({"userA.userId": user_id}))
+    for r in user_requests:
+        r["_id"] = str(r["_id"])  # MongoDB ObjectId is not JSON serializable
+    return jsonify(user_requests), 200
 
 if __name__ == '__main__':
 	app.run(host = '0.0.0.0',debug=True)

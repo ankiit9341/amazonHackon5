@@ -53,14 +53,19 @@ export const Cart = () => {
             // console.log(PRODUCTS);
             if (cartItems[product.id] != 0) {
               return (
-                <div className="cart-item">
+                <div className="cart-item" key={product.id}>
                   <div>
-                    <img src={product.imgSrc} class="product-img-cart" />
+                    <img src={product.imgSrc} className="product-img-cart" />
                   </div>
                   <span className="prod-name-cart">{product.name}</span>
                   <div className="flex justify-between">
                     <button onClick = {() => handleMinus(product.id)} className="bg-gray-300 w-5 rounded-sm cursor-pointer"> - </button>
-                    <input className="quan" value={cartItems[product.id]} />
+                    <input
+                      className="quan"
+                      value={cartItems[product.id]}
+                      readOnly
+                    />
+
                     <button onClick = {() => handlePositive(product.id)} className=" bg-gray-300 w-5 rounded-sm cursor-pointer"> + </button>
                   </div>
                   <div className="flex justify-center">
