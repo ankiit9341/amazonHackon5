@@ -15,11 +15,23 @@ import uuid
 import time
 from pymongo import MongoClient
 from flask_cors import CORS
-from bson import ObjectId
+from bson import ObjectId      #         python server.py
 from dotenv import load_dotenv
+from splitBill import split_bp
 
 load_dotenv()
 uri = os.getenv("MONGO_URI")
+
+from pymongo import MongoClient
+
+client = MongoClient(uri)
+
+try:
+    client.admin.command('ping')
+    print("✅ Connected to MongoDB!")
+except Exception as e:
+    print("❌ Connection failed:", e)
+
 
 mongo = MongoClient(uri)
 db = mongo["powercardDB"]
@@ -31,7 +43,11 @@ transactions_collection = db["transactions"]
 x = datetime.datetime.now()
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+# CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+#changes to available for all routes
+CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
+
+
 
 
 
@@ -745,7 +761,8 @@ def get_my_orders(user_id):
 
     return jsonify(orders), 200
 
-
+# split register
+app.register_blueprint(split_bp, url_prefix='/api/split')
 
 if __name__ == '__main__':
 	app.run(host = '0.0.0.0',debug=True)

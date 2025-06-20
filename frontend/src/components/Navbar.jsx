@@ -44,6 +44,9 @@ const Navbar = () => {
           <Link to='/dashboard'>
             <button className='w-18 text-sm h-10 p-1 md:p-2 rounded-md bg-[#ff9900]' id = "navbar-dashboard-btn">Dashboard</button>
           </Link>
+          <Link to='/split'>
+            <button className='w-18 text-sm h-10 p-1 md:p-2 rounded-md bg-[#ff9900]' id = "navbar-dashboard-btn">Split</button>
+          </Link>
           
           {/* Chatbot Button */}
           <a href="https://029e1983bcbb1cdec5.gradio.live">

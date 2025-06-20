@@ -10,6 +10,7 @@ import Budget from "./pages/Budget/budget.jsx";
 import PowerCardPage from './pages/PowerCardPage';
 import Profile from "./pages/Profile";
 import MyOrders from './pages/MyOrders';
+import SplitBill from "./pages/Split/SplitBill.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Shop />} />
+        <Route path="/split" element={<SplitBill />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/pay" element={<Payment />} />
         <Route path="/dashboard" element={<Dashboard />} />
