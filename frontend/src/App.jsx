@@ -9,6 +9,7 @@ import { Dashboard } from "./pages/dashboard/dashboard.jsx";
 import Budget from "./pages/Budget/budget.jsx";
 import PowerCardPage from './pages/PowerCardPage';
 import Profile from "./pages/Profile";
+import MyOrders from './pages/MyOrders';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/budget" element={<Budget />} />
         <Route path="/powercard" element={<PowerCardPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
     </ShopContextProvider>
   );

@@ -633,6 +633,20 @@ def merchant_payment(request_id):
         {"id": request_id},
         {"$set": {"merchant_paid": True, "status": "completed"}}
     )
+    
+    # 🛒 Place Order for User A
+    order_doc = {
+        "userId": request_doc["userA"]["userId"],
+        "card": request_doc["card"],
+        "productPrice": request_doc["productPrice"],
+        "discount": request_doc["discount"],
+        "finalPaid": request_doc["fullEscrow"],
+        "status": "Order Placed",
+        "placed_at": time.time(),
+        "requestId": request_id
+    }
+    db.orders.insert_one(order_doc)
+
 
     # 🧾 Save transaction
     db.transactions.insert_one({
@@ -718,6 +732,20 @@ def get_my_requests(user_id):
     for r in user_requests:
         r["_id"] = str(r["_id"])  # MongoDB ObjectId is not JSON serializable
     return jsonify(user_requests), 200
+
+@app.route('/api/powercard/my-orders/<user_id>', methods=['GET'])
+def get_my_orders(user_id):
+    orders = list(db.requests.find({
+        "userA.userId": user_id,
+        "status": "completed"
+    }))
+
+    for order in orders:
+        order["_id"] = str(order["_id"])  # Make ObjectId JSON serializable
+
+    return jsonify(orders), 200
+
+
 
 if __name__ == '__main__':
 	app.run(host = '0.0.0.0',debug=True)
