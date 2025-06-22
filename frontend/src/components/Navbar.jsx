@@ -12,7 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleBudgetClick = () => {
-    navigate('/udget');
+    navigate('/budget');
   };
 
   const handlePowerCardClick = () => {

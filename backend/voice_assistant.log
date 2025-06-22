@@ -920,3 +920,5 @@ pymongo.errors.InvalidOperation: Cannot use MongoClient after close
 2025-06-23 03:12:02,537 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2025 03:12:02] "GET /api/powercard/myrequests/userA HTTP/1.1" 200 -
 2025-06-23 03:12:02,541 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2025 03:12:02] "GET /api/powercard/all HTTP/1.1" 200 -
 2025-06-23 03:12:02,570 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2025 03:12:02] "GET /api/powercard/eligible/userA HTTP/1.1" 200 -
+2025-06-23 03:22:26,626 - werkzeug - INFO -  * Detected change in '/Users/chaitanyaadityasinghchouhan/Desktop/HackOn-With-Amazon/Amazon_Hackon_S5/backend/server.py', reloading
+2025-06-23 03:22:27,880 - werkzeug - INFO -  * Restarting with stat
