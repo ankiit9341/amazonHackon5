@@ -52,10 +52,13 @@ budget_collection = db["budget"]
 x = datetime.datetime.now()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
-CORS(app, 
-     origins=["http://localhost:5173"], 
-     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+# CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app,
+     origins=[
+         "http://localhost:5173", 
+         "https://ankiit9341.github.io"
+     ],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
      supports_credentials=True)
 
 PRODUCTS = [
