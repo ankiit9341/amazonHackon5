@@ -1,0 +1,524 @@
+2025-06-22 20:12:59,252 - werkzeug - WARNING -  * Debugger is active!
+2025-06-22 20:12:59,298 - werkzeug - INFO -  * Debugger PIN: 131-093-855
+2025-06-22 20:13:52,464 - werkzeug - INFO -  * Detected change in '/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/server.py', reloading
+2025-06-22 20:13:58,330 - werkzeug - WARNING -  * Debugger is active!
+2025-06-22 20:13:58,371 - werkzeug - INFO -  * Debugger PIN: 131-093-855
+2025-06-22 20:14:02,156 - werkzeug - INFO -  * Detected change in '/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/server.py', reloading
+2025-06-22 20:14:06,617 - werkzeug - WARNING -  * Debugger is active!
+2025-06-22 20:14:06,655 - werkzeug - INFO -  * Debugger PIN: 131-093-855
+2025-06-22 20:14:31,110 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:14:31] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:14:31,112 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:14:31] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:14:31,195 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:14:31,196 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:14:32,178 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:14:34,106 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:14:34] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:14:37,708 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:14:37] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:01,645 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.33:5000
+2025-06-22 20:15:01,646 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-22 20:15:01,648 - werkzeug - INFO -  * Restarting with stat
+2025-06-22 20:15:06,043 - werkzeug - WARNING -  * Debugger is active!
+2025-06-22 20:15:06,089 - werkzeug - INFO -  * Debugger PIN: 131-093-855
+2025-06-22 20:15:06,778 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:06] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:15:06,778 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:06] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:06,800 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:06] "GET /api/users HTTP/1.1" 200 -
+2025-06-22 20:15:06,823 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:06] "GET /api/users HTTP/1.1" 200 -
+2025-06-22 20:15:06,845 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:15:06,846 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:15:06,905 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:06] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:07,036 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:15:09,904 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:09] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:12,906 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:12] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:15,910 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:15] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:16,078 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:15:18,908 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:18] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:19,638 - VoiceAssistant - INFO - User: add to milk
+2025-06-22 20:15:21,912 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:21] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:24,910 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:24] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:25,478 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-22 20:15:25,496 - VoiceAssistant - INFO - AI Parsed: {
+  "intent": "add",
+  "items": {
+    "Milk": 1
+  },
+  "response": "Milk added to your cart. Current total: \u20b90",
+  "user_name": "Not provided"
+}
+2025-06-22 20:15:25,496 - VoiceAssistant - INFO - Assistant: Nice to meet you, Not provided! How can I help you today?
+2025-06-22 20:15:25,496 - VoiceAssistant - INFO - Assistant: Milk added to your cart. Current total: 0 rupees
+2025-06-22 20:15:25,496 - VoiceAssistant - INFO - Speaking: Nice to meet you, Not provided! How can I help you today?
+2025-06-22 20:15:25,501 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:15:25,750 - VoiceAssistant - INFO - Assistant: Added 1 milk (doodh).
+2025-06-22 20:15:25,750 - VoiceAssistant - INFO - Assistant: Current total: 262 rupees. Say 'confirm order' when ready to pay.
+2025-06-22 20:15:25,848 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:15:26,002 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:15:26,002 - VoiceAssistant - INFO - Speaking: Milk added to your cart. Current total: 0 rupees
+2025-06-22 20:15:26,002 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:15:26,504 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:15:26,504 - VoiceAssistant - INFO - Speaking: Added 1 milk (doodh).
+2025-06-22 20:15:26,504 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:15:27,009 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:15:27,010 - VoiceAssistant - INFO - Speaking: Current total: 262 rupees. Say 'confirm order' when ready to pay.
+2025-06-22 20:15:27,010 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:15:27,516 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:15:28,701 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:28] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:31,695 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:31] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:34,260 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:15:34,697 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:34] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:37,695 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:37] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:40,696 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:40] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:42,684 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:15:43,697 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:43] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:46,698 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:46] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:49,698 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:49] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:51,094 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:15:52,698 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:52] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:54,959 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:54] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:57,909 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:15:57] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:15:59,521 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:16:00,904 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:00] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:02,399 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:02] "POST /api/voice-assistant/confirm HTTP/1.1" 200 -
+2025-06-22 20:16:03,909 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:03] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:06,908 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:06] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:08,023 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:16:09,903 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:09] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:12,905 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:12] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:14,264 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:14] "POST /api/voice-assistant/confirm HTTP/1.1" 200 -
+2025-06-22 20:16:15,906 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:15] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:16,550 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:16:18,747 - VoiceAssistant - INFO - Assistant: Assistant is shutting down. Goodbye!
+2025-06-22 20:16:18,747 - VoiceAssistant - INFO - Speaking: Assistant is shutting down. Goodbye!
+2025-06-22 20:16:18,748 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:16:18,904 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:18] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:19,253 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:16:19,753 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:19] "POST /api/voice-assistant/stop HTTP/1.1" 200 -
+2025-06-22 20:16:23,641 - VoiceAssistant - INFO - Voice assistant session ended
+2025-06-22 20:16:52,788 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:52] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:16:52,788 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:16:52,790 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:52] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:52,791 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:16:52,796 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:16:52,918 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:16:53,301 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:16:55,786 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:55] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:16:58,788 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:16:58] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:01,350 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:02,715 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:02] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:05,695 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:05] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:08,692 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:08] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:09,766 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:10,792 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:10] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:14,702 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:14] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:17,710 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:17] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:18,199 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:20,696 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:20] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:23,695 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:23] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:26,691 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:26] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:27,772 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:29,637 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:29] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:31,714 - VoiceAssistant - INFO - Assistant: Assistant is shutting down. Goodbye!
+2025-06-22 20:17:31,715 - VoiceAssistant - INFO - Speaking: Assistant is shutting down. Goodbye!
+2025-06-22 20:17:31,715 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:17:31,785 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:31] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:32,219 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:17:32,719 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:32] "POST /api/voice-assistant/stop HTTP/1.1" 200 -
+2025-06-22 20:17:35,095 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:35] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:17:35,095 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:17:35,096 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:35] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:35,098 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:17:35,099 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:17:35,145 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:35,604 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:17:36,152 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:38,099 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:38] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:40,666 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:40,702 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:17:41,101 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:41] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:43,983 - VoiceAssistant - INFO - Assistant: Assistant is shutting down. Goodbye!
+2025-06-22 20:17:43,983 - VoiceAssistant - INFO - Speaking: Assistant is shutting down. Goodbye!
+2025-06-22 20:17:43,984 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:17:44,098 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:44] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:17:44,489 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:17:44,988 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:17:44] "POST /api/voice-assistant/stop HTTP/1.1" 200 -
+2025-06-22 20:17:49,513 - VoiceAssistant - INFO - Voice assistant session ended
+2025-06-22 20:17:49,750 - VoiceAssistant - INFO - Voice assistant session ended
+2025-06-22 20:21:45,343 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:45] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:21:45,345 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:21:45,348 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:45] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:21:45,350 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:21:45,352 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:21:45,543 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:21:45,856 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:21:46,694 - VoiceAssistant - INFO - Assistant: Assistant is shutting down. Goodbye!
+2025-06-22 20:21:46,695 - VoiceAssistant - INFO - Speaking: Assistant is shutting down. Goodbye!
+2025-06-22 20:21:46,695 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:21:47,200 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:21:47,699 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:47] "POST /api/voice-assistant/stop HTTP/1.1" 200 -
+2025-06-22 20:21:48,348 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:48] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:21:54,409 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:21:54,409 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:54] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:21:54,410 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:21:54,410 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:21:54,413 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:54] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:21:54,462 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:21:54,915 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:21:55,682 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:21:57,414 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:57] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:21:58,443 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:58] "GET /api/users HTTP/1.1" 200 -
+2025-06-22 20:21:58,469 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:58] "GET /api/users HTTP/1.1" 200 -
+2025-06-22 20:21:59,893 - VoiceAssistant - INFO - Assistant: Assistant is shutting down. Goodbye!
+2025-06-22 20:21:59,894 - VoiceAssistant - INFO - Speaking: Assistant is shutting down. Goodbye!
+2025-06-22 20:21:59,894 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:21:59,898 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:21:59] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:00,399 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:01,903 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:01] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:22:01,903 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:22:01,904 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:22:01,906 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:01,994 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:22:02,411 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:02,791 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:22:02,898 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:02] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:04,056 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:22:05,906 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:05] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:09,689 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:09] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:12,211 - VoiceAssistant - INFO - User: order mein milk and bread
+2025-06-22 20:22:12,414 - VoiceAssistant - INFO - User: order mein milk and bread
+2025-06-22 20:22:12,441 - VoiceAssistant - INFO - User: order mein milk and bread
+2025-06-22 20:22:12,683 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:12] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:12,978 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-22 20:22:12,987 - VoiceAssistant - INFO - AI Parsed: {
+  "intent": "add",
+  "items": {
+    "milk": 1,
+    "bread": 1
+  },
+  "response": "Items added to cart",
+  "user_name": "Not provided"
+}
+2025-06-22 20:22:12,987 - VoiceAssistant - INFO - Assistant: Nice to meet you, Not provided! How can I help you today?
+2025-06-22 20:22:12,988 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-22 20:22:12,988 - VoiceAssistant - INFO - Assistant: Items added to cart
+2025-06-22 20:22:12,988 - VoiceAssistant - INFO - Speaking: Nice to meet you, Not provided! How can I help you today?
+2025-06-22 20:22:12,990 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:12,991 - VoiceAssistant - INFO - AI Parsed: {
+  "intent": "add",
+  "items": {
+    "Milk": 1,
+    "Bread": 1
+  },
+  "response": "Milk and Bread added to cart. Total \u20b9120. Are you sure? (Hindi: \u0926\u0942\u0927 \u0914\u0930 \u092c\u094d\u0930\u0947\u0921 \u0915\u093e\u0930\u094d\u091f \u092e\u0947\u0902 \u091c\u094b\u0921\u093c\u093e \u0917\u092f\u093e. \u0915\u0941\u0932 \u20b9120 \u0939\u0948. \u0928\u093f\u0936\u094d\u091a\u093f\u0924 \u0939\u0948?)",
+  "user_name": "Not provided"
+}
+2025-06-22 20:22:12,991 - VoiceAssistant - INFO - Assistant: Milk and Bread added to cart. Total 120 rupees. Are you sure? (Hindi: दूध और ब्रेड कार्ट में जोड़ा गया. कुल 120 rupees है. निश्चित है?)
+2025-06-22 20:22:12,996 - VoiceAssistant - ERROR - Assistant error: Traceback (most recent call last):
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 637, in run_voice_assistant
+    handle_command(cmd)
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 507, in handle_command
+    assistant_state.current_order_id = init_order()
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 242, in init_order
+    res = assistant_state.orders_col.insert_one(order)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 891, in insert_one
+    self._insert_one(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 831, in _insert_one
+    self._database.client._retryable_write(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2061, in _retryable_write
+    return self._retry_with_session(retryable, func, s, bulk, operation, operation_id)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1947, in _retry_with_session
+    return self._retry_internal(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2840, in _write
+    self._server = self._get_server()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 361, in _select_servers_loop
+    self._ensure_opened()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 789, in _ensure_opened
+    raise InvalidOperation("Cannot use MongoClient after close")
+pymongo.errors.InvalidOperation: Cannot use MongoClient after close
+
+2025-06-22 20:22:12,996 - VoiceAssistant - ERROR - Assistant error: Traceback (most recent call last):
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 637, in run_voice_assistant
+    handle_command(cmd)
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 507, in handle_command
+    assistant_state.current_order_id = init_order()
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 242, in init_order
+    res = assistant_state.orders_col.insert_one(order)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 891, in insert_one
+    self._insert_one(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 831, in _insert_one
+    self._database.client._retryable_write(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2061, in _retryable_write
+    return self._retry_with_session(retryable, func, s, bulk, operation, operation_id)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1947, in _retry_with_session
+    return self._retry_internal(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2840, in _write
+    self._server = self._get_server()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 361, in _select_servers_loop
+    self._ensure_opened()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 789, in _ensure_opened
+    raise InvalidOperation("Cannot use MongoClient after close")
+pymongo.errors.InvalidOperation: Cannot use MongoClient after close
+
+2025-06-22 20:22:12,996 - VoiceAssistant - INFO - Assistant: I encountered an error. Restarting the assistant.
+2025-06-22 20:22:12,996 - VoiceAssistant - INFO - Assistant: I encountered an error. Restarting the assistant.
+2025-06-22 20:22:12,997 - VoiceAssistant - INFO - Voice assistant session ended
+2025-06-22 20:22:12,997 - VoiceAssistant - INFO - Voice assistant session ended
+2025-06-22 20:22:13,135 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-22 20:22:13,138 - VoiceAssistant - INFO - AI Parsed: {
+  "intent": "add",
+  "items": {
+    "Milk": 1,
+    "Bread": 1
+  },
+  "response": "Milk and Bread added to cart. Your current total is \u20b950. Cart contents: Milk (\u20b925), Bread (\u20b925).",
+  "user_name": "Not provided"
+}
+2025-06-22 20:22:13,138 - VoiceAssistant - INFO - Assistant: Milk and Bread added to cart. Your current total is 50 rupees. Cart contents: Milk (25 rupees), Bread (25 rupees).
+2025-06-22 20:22:13,139 - VoiceAssistant - ERROR - Assistant error: Traceback (most recent call last):
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 637, in run_voice_assistant
+    handle_command(cmd)
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 507, in handle_command
+    assistant_state.current_order_id = init_order()
+  File "/Users/chaitanyaadityasinghchouhan/Desktop/Final/Amazon/backend/voicebot.py", line 242, in init_order
+    res = assistant_state.orders_col.insert_one(order)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 891, in insert_one
+    self._insert_one(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 831, in _insert_one
+    self._database.client._retryable_write(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2061, in _retryable_write
+    return self._retry_with_session(retryable, func, s, bulk, operation, operation_id)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1947, in _retry_with_session
+    return self._retry_internal(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2840, in _write
+    self._server = self._get_server()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 361, in _select_servers_loop
+    self._ensure_opened()
+  File "/usr/local/lib/python3.10/site-packages/pymongo/synchronous/topology.py", line 789, in _ensure_opened
+    raise InvalidOperation("Cannot use MongoClient after close")
+pymongo.errors.InvalidOperation: Cannot use MongoClient after close
+
+2025-06-22 20:22:13,140 - VoiceAssistant - INFO - Assistant: I encountered an error. Restarting the assistant.
+2025-06-22 20:22:13,140 - VoiceAssistant - INFO - Voice assistant session ended
+2025-06-22 20:22:13,495 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:13,496 - VoiceAssistant - INFO - Speaking: Items added to cart
+2025-06-22 20:22:13,497 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:14,001 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:14,002 - VoiceAssistant - INFO - Speaking: Milk and Bread added to cart. Total 120 rupees. Are you sure? (Hindi: दूध और ब्रेड कार्ट में जोड़ा गया. कुल 120 rupees है. निश्चित है?)
+2025-06-22 20:22:14,002 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:14,502 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:14,502 - VoiceAssistant - INFO - Speaking: I encountered an error. Restarting the assistant.
+2025-06-22 20:22:14,503 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:15,005 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:15,006 - VoiceAssistant - INFO - Speaking: I encountered an error. Restarting the assistant.
+2025-06-22 20:22:15,006 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:15,507 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:15,508 - VoiceAssistant - INFO - Speaking: Milk and Bread added to cart. Your current total is 50 rupees. Cart contents: Milk (25 rupees), Bread (25 rupees).
+2025-06-22 20:22:15,508 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:15,686 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:15] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:16,013 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:16,013 - VoiceAssistant - INFO - Speaking: I encountered an error. Restarting the assistant.
+2025-06-22 20:22:16,014 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:22:16,519 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:22:18,686 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:18] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:21,687 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:21] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:24,688 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:24] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:27,688 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:27] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:30,683 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:30] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:33,683 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:33] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:36,686 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:36] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:38,908 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:38] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:42,685 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:42] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:45,709 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:45] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:48,683 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:48] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:51,682 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:51] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:54,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:54] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:22:57,684 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:22:57] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:00,691 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:00] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:03,685 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:03] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:06,687 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:06] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:09,682 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:09] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:12,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:12] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:15,682 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:15] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:18,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:18] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:21,684 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:21] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:24,683 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:24] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:27,383 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:27] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:30,683 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:30] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:33,683 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:33] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:36,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:36] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:39,688 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:39] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:42,684 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:42] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:45,687 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:45] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:48,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:48] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:51,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:51] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:54,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:54] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:23:57,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:23:57] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:00,685 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:00] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:03,685 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:03] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:06,685 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:06] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:09,681 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:09] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:12,682 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:12] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:15,686 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:15] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:18,680 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:18] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:21,685 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:21] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:24,690 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:24] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:24:27,678 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:24:27] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:25:02,765 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:25:02] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:26:02,744 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:26:02] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:37:58,158 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.33:5000
+2025-06-22 20:37:58,159 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-22 20:37:58,161 - werkzeug - INFO -  * Restarting with stat
+2025-06-22 20:38:01,537 - werkzeug - WARNING -  * Debugger is active!
+2025-06-22 20:38:01,584 - werkzeug - INFO -  * Debugger PIN: 131-093-855
+2025-06-22 20:38:08,208 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:08] "GET /api/users HTTP/1.1" 200 -
+2025-06-22 20:38:08,241 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:08] "GET /api/users HTTP/1.1" 200 -
+2025-06-22 20:38:12,565 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:12] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:12,565 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:12] "POST /api/voice-assistant/start HTTP/1.1" 200 -
+2025-06-22 20:38:12,674 - VoiceAssistant - INFO - Assistant: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:38:12,674 - VoiceAssistant - INFO - Speaking: Namaste! Welcome to Grocery Assistant. Say 'I want to order' or 'Mujhe saman chahiye' to start.
+2025-06-22 20:38:15,028 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:38:15,570 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:15] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:18,566 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:18] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:21,570 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:21] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:24,292 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:38:24,573 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:24] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:26,885 - VoiceAssistant - INFO - User: to order milk
+2025-06-22 20:38:27,566 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:27] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:27,833 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-22 20:38:27,847 - VoiceAssistant - INFO - AI Parsed: {
+  "intent": "add",
+  "items": {
+    "Milk": 1
+  },
+  "response": "Milk added to your cart. Current total: \u20b950. Mujhe saman chahiye?"
+}
+2025-06-22 20:38:27,847 - VoiceAssistant - INFO - Assistant: Milk added to your cart. Current total: 50 rupees. Mujhe saman chahiye?
+2025-06-22 20:38:27,848 - VoiceAssistant - INFO - Speaking: Milk added to your cart. Current total: 50 rupees. Mujhe saman chahiye?
+2025-06-22 20:38:27,851 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:38:28,059 - VoiceAssistant - INFO - Assistant: Added 1 milk (doodh).
+2025-06-22 20:38:28,060 - VoiceAssistant - INFO - Assistant: Current total: 262 rupees. Say 'confirm order' when ready to pay.
+2025-06-22 20:38:28,163 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:38:28,357 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:38:28,357 - VoiceAssistant - INFO - Speaking: Added 1 milk (doodh).
+2025-06-22 20:38:28,358 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:38:28,860 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:38:28,861 - VoiceAssistant - INFO - Speaking: Current total: 262 rupees. Say 'confirm order' when ready to pay.
+2025-06-22 20:38:28,861 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:38:29,364 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:38:30,571 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:30] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:33,662 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:33] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:36,665 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:36] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:36,737 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:38:39,660 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:39] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:40,691 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:38:42,664 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:42] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:43,830 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:38:45,580 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:45] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:48,564 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:48] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:50,936 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:38:51,565 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:51] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:51,794 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:51] "POST /api/voice-assistant/confirm HTTP/1.1" 200 -
+2025-06-22 20:38:54,567 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:54] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:57,566 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:38:57] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:38:59,317 - VoiceAssistant - INFO - 
+🎤 Listening...
+2025-06-22 20:39:00,563 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:39:00] "GET /api/voice-assistant/status HTTP/1.1" 200 -
+2025-06-22 20:39:00,845 - VoiceAssistant - INFO - Assistant: Assistant is shutting down. Goodbye!
+2025-06-22 20:39:00,846 - VoiceAssistant - INFO - Speaking: Assistant is shutting down. Goodbye!
+2025-06-22 20:39:00,846 - VoiceAssistant - WARNING - TTS engine busy, retrying after delay
+2025-06-22 20:39:01,351 - VoiceAssistant - ERROR - TTS retry failed: run loop already started
+2025-06-22 20:39:01,848 - werkzeug - INFO - 127.0.0.1 - - [22/Jun/2025 20:39:01] "POST /api/voice-assistant/stop HTTP/1.1" 200 -
+2025-06-22 20:39:07,641 - VoiceAssistant - INFO - Voice assistant session ended
+2025-06-22 22:23:31,507 - comtypes.client._code_cache - INFO - Could not import comtypes.gen, trying to create it.
+2025-06-22 22:23:31,508 - comtypes.client._code_cache - INFO - Created comtypes.gen directory: 'C:\Users\itsan\AppData\Local\Programs\Python\Python313\Lib\site-packages\comtypes\gen'
+2025-06-22 22:23:31,509 - comtypes.client._code_cache - INFO - Writing __init__.py file: 'C:\Users\itsan\AppData\Local\Programs\Python\Python313\Lib\site-packages\comtypes\gen\__init__.py'
+2025-06-22 22:23:31,531 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\itsan\AppData\Local\Programs\Python\Python313\Lib\site-packages\comtypes\gen'
+2025-06-22 22:23:31,604 - comtypes.client._generate - INFO - Could not import comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4: No module named 'comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4'
+2025-06-22 22:23:31,609 - comtypes.client._generate - INFO - # Generating comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4
+2025-06-22 22:23:31,742 - comtypes.client._generate - INFO - # Generating comtypes.gen.SpeechLib
+2025-06-22 22:23:31,752 - comtypes.client._generate - INFO - Could not import comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0: No module named 'comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0'
+2025-06-22 22:23:31,753 - comtypes.client._generate - INFO - # Generating comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0
+2025-06-22 22:23:31,764 - comtypes.client._generate - INFO - # Generating comtypes.gen.stdole

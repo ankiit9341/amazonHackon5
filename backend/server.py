@@ -15,22 +15,30 @@ import uuid
 import time
 from pymongo import MongoClient
 from flask_cors import CORS
-from bson import ObjectId      #         python server.py
+from bson import ObjectId
 from dotenv import load_dotenv
+from openai import OpenAI
+import threading
 from splitBill import split_bp
+from voicebot import run_voice_assistant, stop_voice_assistant, assistant_state
+
+email_sender = os.getenv("EMAIL_SENDER")
+email_password = os.getenv("EMAIL_PASSWORD")
+
+load_dotenv()  # ✅ Loads .env
+import os
+api_key = os.environ.get("GROQ_API_KEY")
+print("🧪 API Key:", api_key)  # Temporary print to test
+
+
+groq_client = OpenAI(
+    api_key=api_key,
+    base_url="https://api.groq.com/openai/v1"  # ✅ Groq base URL
+)
+
 
 load_dotenv()
 uri = os.getenv("MONGO_URI")
-
-from pymongo import MongoClient
-
-client = MongoClient(uri)
-
-try:
-    client.admin.command('ping')
-    print("✅ Connected to MongoDB!")
-except Exception as e:
-    print("❌ Connection failed:", e)
 
 
 mongo = MongoClient(uri)
@@ -39,25 +47,12 @@ users_collection = db["users"]
 requests_collection = db["requests"]
 escrow_collection = db["escrow"]
 transactions_collection = db["transactions"]
+budget_collection = db["budget"]
 
 x = datetime.datetime.now()
 
 app = Flask(__name__)
-# CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
-#changes to available for all routes
-CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
-
-
-
-
-
-__amt = None
-__transactionsdf=None
-__offersdf=None
-__pmdf=None
-__model1=None
-__model2=None
-__le=None
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 PRODUCTS = [
     {
@@ -110,413 +105,105 @@ PRODUCTS = [
     }
 ]
 
+@app.route('/budgetLimit', methods=['POST'])
+def set_budget_limit():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    amount = float(data.get('amount'))
+    valid_till = data.get('valid_till')
 
-def load_model():
-
-    df_col=['user_id', 'transaction_amount', 'payment_method',  'date','success/failure']
-    offers_df_col=['payment_method', 'start_date', 'end_date',  'cashbacks', 'charges']
-
-    mydb=mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="password",
-        database="hackonamazon",
-    )
-
-    mycursor=mydb.cursor()
-    mycursor.execute("SELECT * FROM transaction")
-    myresult=mycursor.fetchall()
-
-    df = pd.DataFrame(columns=df_col)
-
-    for x in myresult:
-        new_data = pd.DataFrame([x],columns=df_col)
-        df = pd.concat([df, new_data], ignore_index=True)
-
-    mydb=mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="password",
-        database="hackonamazon",
-    )
-
-    mycursor=mydb.cursor()
-    mycursor.execute("SELECT * FROM offers")
-    myresult=mycursor.fetchall()
-
-    offers_df = pd.DataFrame(columns=offers_df_col)
-
-    for x in myresult:
-        new_data = pd.DataFrame([x],columns=offers_df_col)
-        offers_df = pd.concat([offers_df, new_data],    ignore_index=True)
-
-
-    payment_method_counts = df.groupby(['user_id',  'payment_method']).size().reset_index(name='count')
-
-
-    most_frequent_payment_method = payment_method_counts.loc    [payment_method_counts.groupby('user_id')['count'].idxmax()]
-
-
-    user_payment_map = most_frequent_payment_method.set_index   ('user_id')['payment_method'].to_dict()
-
-    df['frequently_used_payment_method'] = df['user_id'].map    (user_payment_map)
-    transaction_df=df
-
-    transaction_df['date'] = pd.to_datetime(transaction_df['date'])
-
-    global __transactionsdf
-    __transactionsdf=transaction_df
-
-    offers_df['start_date'] = pd.to_datetime(offers_df['start_date'])
-    offers_df['end_date'] = pd.to_datetime(offers_df['end_date'])
-    
-    global __offersdf
-    __offersdf=offers_df
-
-
-    merged_df = transaction_df.merge(offers_df, on='payment_method')
-    merged_df = merged_df[(merged_df['date'] >= merged_df   ['start_date']) & (merged_df['date'] <= merged_df['end_date'])]
-    merged_df=merged_df.drop(columns=['start_date','end_date'])
-
-
-    le = LabelEncoder()
-    global __le
-    __le=le
-    merged_df['net_benefit'] = merged_df['cashbacks'] - merged_df   ['charges']
-    merged_df['success/failure']=le.fit_transform(merged_df['success/failure'])
-    merged_df['success_rate'] = merged_df.groupby(['payment_method'])   ['success/failure'].transform(lambda x: x.sum() / x.count())
-
-
-    merged_df['payment_method_encoded'] = le.fit_transform(merged_df    ['payment_method'])
-    merged_df['frequently_used_payment_method_encoded'] = le.   fit_transform(merged_df['frequently_used_payment_method'])
-
-
-    pm_df=merged_df[['payment_method','payment_method_encoded', 'net_benefit','success_rate']]
-    pm_df.drop_duplicates(inplace=True)
-    
-    global __pmdf
-    __pmdf=pm_df
-
-
-    features = ['transaction_amount', 'net_benefit', 'success_rate',    'frequently_used_payment_method_encoded']
-    X = merged_df[features]
-    y = merged_df['payment_method_encoded']
-
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y,   test_size=0.2, random_state=42)
-
-
-    global __model1
-    __model1 = RandomForestClassifier(n_estimators=100,     random_state=42)
-    __model1.fit(X_train, y_train)
-
-
-    features2 = ['transaction_amount', 'net_benefit', 'success_rate']
-    X2 = merged_df[features2]
-    y2 = merged_df['payment_method_encoded']
-
-    X_train, X_test, y_train, y_test = train_test_split(X2, y2,  test_size=0.2, random_state=42)
-
-
-    global __model2
-    __model2 = RandomForestClassifier(n_estimators=100,   random_state=42)
-    __model2.fit(X_train, y_train)
-
-def get_frequently_used_payment_method(user_id, transaction_df):
-    user_transactions = transaction_df[transaction_df['user_id'] == user_id]
-    user_transactions=user_transactions.sort_values(by=list(user_transactions.columns), ascending=[False] * len(user_transactions.columns))
-    if not user_transactions.empty:
-        return user_transactions['frequently_used_payment_method'].mode()[0]
+    existing = budget_collection.find_one({"user_id": user_id})
+    if existing:
+        budget_collection.update_one(
+            {"user_id": user_id},
+            {"$set": {"amount": amount, "valid_till": valid_till}}
+        )
     else:
-        return None
+        budget_collection.insert_one({
+            "user_id": user_id,
+            "amount": amount,
+            "valid_till": valid_till,
+            "spend_amount": 0  # default
+        })
 
-def prediction_fun(transaction):
-    
-    load_model()
-    
-    transaction_df=__transactionsdf
-    offers_df=__offersdf
-    model1=__model1
-    model2=__model2
-    pm_df=__pmdf
-    
-    user_id = transaction['user_id']
-    frequently_used_payment_method = get_frequently_used_payment_method(user_id, transaction_df)
-    
-    transaction = pd.DataFrame([transaction])
-    transaction['date'] = pd.to_datetime(transaction['date'])
-    transaction['success/failure'] = np.where(transaction['success/failure'] == 'success', 1, 0)
+    return jsonify({"message": "Budget set/updated successfully"}), 200
 
-    if frequently_used_payment_method!=None:
-        transaction['frequently_used_payment_method'] = frequently_used_payment_method
-    
-    current_offers = offers_df[(offers_df['start_date'] <= transaction['date'].values[0]) & (offers_df['end_date'] >= transaction['date'].values[0])]
-
-    le = __le
-    
-    if frequently_used_payment_method:
-        transaction['frequently_used_payment_method_encoded'] = le.transform([transaction['frequently_used_payment_method'].values[0]])
-
-    repeated_row = pd.concat([transaction] * len(current_offers), ignore_index=True)
-    transaction = pd.concat([current_offers, repeated_row], axis=1)
-    
-    transaction['net_benefit'] = transaction['cashbacks'] - transaction['charges']
-    
-    transaction['success_rate'] = transaction.groupby(['payment_method'])['success/failure'].transform(lambda x: x.sum() / x.count())
-
-    if frequently_used_payment_method==None:
-        features = ['transaction_amount', 'net_benefit', 'success_rate']
-    else:
-        features= ['transaction_amount', 'net_benefit', 'success_rate', 'frequently_used_payment_method_encoded']
-    feature_values = transaction[features].values
-
-    if frequently_used_payment_method!=None:
-        predicted_payment_method_encoded = model1.predict(feature_values)
-    else:
-        predicted_payment_method_encoded = model2.predict(feature_values)
- 
-    filtered_df = pm_df[pm_df['payment_method_encoded'].isin(predicted_payment_method_encoded)]
-
-    sorted_filtered_df = filtered_df.set_index('payment_method_encoded').loc[predicted_payment_method_encoded].reset_index()
-    pred_df=sorted_filtered_df
-    
-    payment_method_counts = pred_df['payment_method'].value_counts()
-    
-    max_frequency = payment_method_counts.max()
-    
-    most_frequent_methods = payment_method_counts[payment_method_counts == max_frequency].index.tolist()
-
-    filtered_df = pred_df[pred_df['payment_method'].isin(most_frequent_methods)]
-
-    highest_success_rate = filtered_df['success_rate'].max()
-    highest_success_methods = filtered_df[filtered_df['success_rate'] == highest_success_rate]
-
-    if highest_success_methods.shape[0] > 1:
-        highest_net_benefit = highest_success_methods['net_benefit'].max()
-        final_method = highest_success_methods[highest_success_methods['net_benefit'] == highest_net_benefit]['payment_method'].iloc[0]
-    else:
-        final_method = highest_success_methods['payment_method'].iloc[0]
-
-    return final_method
-
-def send_email_notifications(notifications):
-    email_sender = 'amazonhackon@gmail.com'
-    email_receiver = 'hackonamazon04@gmail.com'
-    email_password = 'samplepassword' # Add password here
-    subject = 'Budget Notification'
-    body = "\n".join(notifications)
-
-    em = EmailMessage()
-    em['From'] = email_sender
-    em['To'] = email_receiver
-    em['Subject'] = subject
-    em.set_content(body)
-
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-        smtp.login(email_sender, email_password)
-        smtp.sendmail(email_sender, email_receiver, em.as_string())
-
-# Function to check budget limit
-def check_budget_limit(user_id):
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="password",
-        database="hackonamazon"
-    )
-    mycursor = mydb.cursor()
-
-    mycursor.execute("SELECT amount, spend_amount FROM budget WHERE user_id = %s", (user_id,))
-    budget_info = mycursor.fetchone()
-
-    if budget_info:
-        amount = budget_info[0]
-        spend_amount = budget_info[1]
-
-        if amount > 0:
-            spend_percent = (spend_amount / amount) * 100
-
-            notifications = []
-
-            if spend_percent >= 100:
-                notifications.append("100% of the budget limit has been used. No remaining budget.")
-            if spend_percent < 100 and spend_percent > 90:
-                notifications.append(f"90% of the budget limit has been used. Remaining budget: ${amount - spend_amount:.2f}")
-            if spend_amount < 90 and spend_percent > 50:
-                notifications.append(f"50% of the budget limit has been used. Remaining budget: ${amount - spend_amount:.2f}")
-
-            if notifications:
-                send_email_notifications(notifications)
-
-    mycursor.close()
-    mydb.close()
-
-# Route to accept the total amount in the cart
-@app.route('/api/data', methods=["POST","GET"])
-def get_data():
-    if( request.method == 'POST'):
-        data = request.get_json()
-        price = request.json['totalPrice']
-        global __amt
-        __amt = price
-        return jsonify({'message' : 'data recieved'})
-    else:
-        return jsonify({'message' : 'data not recieved'})
-
-#Route to send Payment Method Recommendation
-@app.route('/predict', methods=['POST','GET'])
-def predict_payment_method():
-    today = datetime.date.today()
-    transaction = {
-        'user_id': 4,
-        'transaction_amount': __amt,
-        'date': today.strftime("%Y-%m-%d"),
-        'success/failure': 'success'
-    }
-    recommended_method = prediction_fun(transaction)
-    return jsonify({'recommended_payment_method': recommended_method})
-
-# Route to fetch budget limit
 @app.route('/getBudgetLimit', methods=['POST'])
 def get_budget_limit():
-    if request.method == 'POST':
-        data = request.get_json()
-        user_id = data.get('user_id')
+    data = request.get_json()
+    user_id = data.get('user_id')
 
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="password",
-            database="hackonamazon"
-        )
-        
-        mycursor = mydb.cursor()
-        mycursor.execute("SELECT amount, spend_amount FROM budget WHERE user_id = %s", (user_id,))
-        budget_info = mycursor.fetchone()
-
-        mycursor.close()
-        mydb.close()
-
-        if budget_info:
-            budget_limit = budget_info[0]
-            spend_amount = budget_info[1]
-            return jsonify({'budget_limit': budget_limit, 'spend_amount': spend_amount})
-        else:
-            return jsonify({'error': 'Budget limit not found'})
+    result = budget_collection.find_one({"user_id": user_id})
+    if result:
+        return jsonify({
+            "budget_limit": result.get("amount", 0),
+            "spend_amount": result.get("spend_amount", 0)
+        })
     else:
-        return jsonify({'error': 'Method not allowed'})
-
-#Route to set/update budget limit
-@app.route('/budgetLimit', methods=['POST'])
-def setBudgetLimit():
-    if request.method == 'POST':
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="password",
-            database="hackonamazon"
-        )
-        data = request.get_json()
-        user_id = data.get('user_id')
-        amount = data.get('amount')
-        valid_till = data.get('valid_till')
-
-        mycursor = mydb.cursor()
-        mycursor.execute("SELECT * FROM budget WHERE user_id = %s", (user_id,))
-        existing_budget = mycursor.fetchone()
-
-        if existing_budget:
-            mycursor.execute("UPDATE budget SET amount = %s, valid_till = %s WHERE user_id = %s",
-                             (amount, valid_till, user_id))
-        else:
-            mycursor.execute("INSERT INTO budget (user_id, amount, valid_till) VALUES (%s, %s, %s)",
-                             (user_id, amount, valid_till))
-
-        mydb.commit()
-        mycursor.close()
-
-        return jsonify({'message': 'success'})
+        return jsonify({"budget_limit": 0, "spend_amount": 0})
 
 @app.route('/resetBudget', methods=['POST'])
 def reset_budget():
-    if request.method == 'POST':
-        data = request.get_json()
-        user_id = data.get('user_id')
+    data = request.get_json()
+    user_id = data.get('user_id')
 
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="password",
-            database="hackonamazon"
-        )
-        
-        mycursor = mydb.cursor()
-        mycursor.execute("DELETE FROM budget WHERE user_id = %s", (user_id,))
-        mydb.commit()
+    budget_collection.delete_one({"user_id": user_id})
 
-        mycursor.close()
-        mydb.close()
-
-        return jsonify({'message': 'success'})
-
-@app.route('/checkout', methods = ['POST','GET'])
-def checkout():
-    if request.method == 'POST':
-        items = request.json['cartItems']
-        paymentMethod = request.json['paymentMethod']
-        print(items)
-        # print(request)
-        print(paymentMethod)
-
-        mydb=mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="password",
-            database="hackonamazon",
-        )
-
-        mycursor=mydb.cursor()
-        mycursor.execute("SELECT MAX(`Order ID`) FROM orders")
-        myresult = mycursor.fetchone()
-        last_order_id = myresult[0]
-        mydb.close()
-
-        mydb=mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="password",
-            database="hackonamazon",
-        )
-
-        mycursor=mydb.cursor()
-        totalAmt = 0
-        for i in range(1,9):
-            if items[str(i)] == 0:
-                continue
-            current_date = datetime.datetime.now()
-            formatted_date = str(current_date.strftime("%Y-%m-%d %H:%M:%S"))
-            
-            sql = "INSERT INTO orders VALUES (%s, %s, %s, %s, %s, %s, NULL, %s, NULL, NULL)"
-            values = (str(last_order_id+1), PRODUCTS[i-1]['name'], PRODUCTS[i-1]['category'], formatted_date, str(PRODUCTS[i-1]['price']*items[str(i)]), str(items[str(i)]), str(10))
-            totalAmt += PRODUCTS[i-1]['price']*items[str(i)]
-            for i in values:
-                print(i)
-            mycursor.execute(sql,values)
-            mydb.commit()
-            last_order_id += 1
-        current_date = datetime.datetime.now()
-        formatted_date = str(current_date.strftime("%Y-%m-%d"))
-        mycursor.execute("UPDATE Budget SET spend_amount = spend_amount + %s WHERE user_id = 1 AND valid_till >= %s",(totalAmt,formatted_date))
-        mydb.commit()
-        check_budget_limit(1)
-        mydb.close()
-        
-        return jsonify({'message' : 'checkout successful'})
-    else:
-        return jsonify({'message' : 'data not recieved'})
+    return jsonify({"message": "Budget reset successfully"})
 
 powercard_requests = {}
+
+def check_budget_limit(user_id):
+    budget = budget_collection.find_one({"user_id": user_id})
+    if not budget:
+        return
+
+    amount = budget.get("amount", 0)
+    spent = budget.get("spend_amount", 0)
+
+    if amount <= 0:
+        return
+
+    percent_used = (spent / amount) * 100
+    notifications = []
+
+    if percent_used >= 100:
+        notifications.append(f"🚨 Budget Alert: 100% of your ₹{amount} budget has been used.")
+    elif percent_used >= 90:
+        notifications.append(f"⚠️ Budget Warning: 90% used. Remaining: ₹{amount - spent:.2f}")
+    elif percent_used >= 50:
+        notifications.append(f"📢 Notice: 50% of your budget has been used. Remaining: ₹{amount - spent:.2f}")
+
+    if notifications:
+        send_email_notifications(user_id, notifications)
+
+def send_email_notifications(user_id, notifications):
+    user = users_collection.find_one({"userId": user_id})
+    if not user or "email" not in user:
+        print(f"❌ No email found for user {user_id}")
+        return
+
+    email_sender = "amazon.hackon.s5@gmail.com"
+    email_password = "tkub qryc rnxe pqrd"  # Consider using app password
+    email_receiver = user["email"]
+
+    subject = "🔔 Budget Notification"
+    body = "\n".join(notifications)
+
+    em = EmailMessage()
+    em["From"] = email_sender
+    em["To"] = email_receiver
+    em["Subject"] = subject
+    em.set_content(body)
+
+    context = ssl.create_default_context()
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
+            smtp.login(email_sender, email_password)
+            smtp.sendmail(email_sender, email_receiver, em.as_string())
+        print(f"✅ Email sent to {email_receiver}")
+    except Exception as e:
+        print("❌ Failed to send email:", e)
 
 @app.route('/api/powercard/request', methods=['POST'])
 def create_power_request():
@@ -621,6 +308,16 @@ def escrow_payment(request_id):
         "request_id": request_id,
         "timestamp": time.time()
     })
+    budget_collection.update_one(
+        {"user_id": userA_id},
+        {
+            "$inc": {"spend_amount": total_amount},
+            "$setOnInsert": {"amount": 0, "valid_till": None}
+        },
+        upsert=True
+    )
+    check_budget_limit(userA_id)
+
 
     return jsonify({"message": "Escrow payment successful"}), 200
 
@@ -760,9 +457,81 @@ def get_my_orders(user_id):
         order["_id"] = str(order["_id"])  # Make ObjectId JSON serializable
 
     return jsonify(orders), 200
+@app.route('/api/voice-assistant/start', methods=['POST'])
+def start_voice_assistant():
+    """Start the voice assistant in a separate thread"""
+    try:
+        # Stop if already running
+        if assistant_state.is_running:
+            stop_voice_assistant()
+            time.sleep(1)
+            
+        thread = threading.Thread(target=run_voice_assistant)
+        thread.daemon = True
+        thread.start()
+        
+        return jsonify({
+            "status": "success",
+            "message": "🧠 Voice Assistant started!",
+            "is_running": True
+        })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e),
+            "is_running": False
+        }), 500
 
-# split register
+@app.route('/api/voice-assistant/stop', methods=['POST'])
+def stop_assistant():
+    """Stop the running voice assistant"""
+    try:
+        if stop_voice_assistant():
+            return jsonify({
+                "status": "success",
+                "message": "🛑 Voice Assistant stopped",
+                "is_running": False
+            })
+        return jsonify({
+            "status": "error",
+            "message": "Assistant not running",
+            "is_running": False
+        }), 400
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e),
+            "is_running": assistant_state.is_running
+        }), 500
+
+@app.route('/api/voice-assistant/confirm', methods=['POST'])
+def confirm_order():
+    """Trigger order confirmation"""
+    try:
+        # This would be handled by the voice assistant thread
+        return jsonify({
+            "status": "success",
+            "message": "Order confirmation requested",
+            "is_running": assistant_state.is_running
+        })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e),
+            "is_running": assistant_state.is_running
+        }), 500
+
+@app.route('/api/voice-assistant/status', methods=['GET'])
+def assistant_status():
+    """Check if assistant is running"""
+    return jsonify({
+        "is_running": assistant_state.is_running,
+        "order_in_progress": assistant_state.order_in_progress,
+        "cart_items": len(assistant_state.cart),
+        "cart_total": assistant_state.cart_total,
+        "user_name": assistant_state.user_name
+    })
 app.register_blueprint(split_bp, url_prefix='/api/split')
-
+    
 if __name__ == '__main__':
 	app.run(host = '0.0.0.0',debug=True)
