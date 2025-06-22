@@ -12,7 +12,7 @@ import PowerCardPage from "./pages/PowerCardPage";
 import Profile from "./pages/Profile";
 import MyOrders from "./pages/MyOrders";
 import SplitBill from "./pages/Split/SplitBill.jsx";
-import VoiceAssistant from "./components/VoiceAssistant";
+// import VoiceAssistant from "./components/VoiceAssistant";
 import AmazonFresh from "./pages/AmazonFresh";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/fresh" element={<AmazonFresh />} />
       </Routes>
-      <VoiceAssistant />
+      {/* <VoiceAssistant /> */}
     </ShopContextProvider>
   );
 }

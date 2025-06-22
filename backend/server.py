@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import threading
 from splitBill import split_bp
-from voicebot import run_voice_assistant, stop_voice_assistant, assistant_state
+# from voicebot import run_voice_assistant, stop_voice_assistant, assistant_state
 
 email_sender = os.getenv("EMAIL_SENDER")
 email_password = os.getenv("EMAIL_PASSWORD")
@@ -476,80 +476,80 @@ def get_my_orders(user_id):
         order["_id"] = str(order["_id"])  # Make ObjectId JSON serializable
 
     return jsonify(orders), 200
-@app.route('/api/voice-assistant/start', methods=['POST'])
-def start_voice_assistant():
-    """Start the voice assistant in a separate thread"""
-    try:
-        # Stop if already running
-        if assistant_state.is_running:
-            stop_voice_assistant()
-            time.sleep(1)
+# @app.route('/api/voice-assistant/start', methods=['POST'])
+# def start_voice_assistant():
+#     """Start the voice assistant in a separate thread"""
+#     try:
+#         # Stop if already running
+#         if assistant_state.is_running:
+#             stop_voice_assistant()
+#             time.sleep(1)
             
-        thread = threading.Thread(target=run_voice_assistant)
-        thread.daemon = True
-        thread.start()
+#         thread = threading.Thread(target=run_voice_assistant)
+#         thread.daemon = True
+#         thread.start()
         
-        return jsonify({
-            "status": "success",
-            "message": "🧠 Voice Assistant started!",
-            "is_running": True
-        })
-    except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e),
-            "is_running": False
-        }), 500
+#         return jsonify({
+#             "status": "success",
+#             "message": "🧠 Voice Assistant started!",
+#             "is_running": True
+#         })
+#     except Exception as e:
+#         return jsonify({
+#             "status": "error",
+#             "message": str(e),
+#             "is_running": False
+#         }), 500
 
-@app.route('/api/voice-assistant/stop', methods=['POST'])
-def stop_assistant():
-    """Stop the running voice assistant"""
-    try:
-        if stop_voice_assistant():
-            return jsonify({
-                "status": "success",
-                "message": "🛑 Voice Assistant stopped",
-                "is_running": False
-            })
-        return jsonify({
-            "status": "error",
-            "message": "Assistant not running",
-            "is_running": False
-        }), 400
-    except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e),
-            "is_running": assistant_state.is_running
-        }), 500
+# @app.route('/api/voice-assistant/stop', methods=['POST'])
+# def stop_assistant():
+#     """Stop the running voice assistant"""
+#     try:
+#         if stop_voice_assistant():
+#             return jsonify({
+#                 "status": "success",
+#                 "message": "🛑 Voice Assistant stopped",
+#                 "is_running": False
+#             })
+#         return jsonify({
+#             "status": "error",
+#             "message": "Assistant not running",
+#             "is_running": False
+#         }), 400
+#     except Exception as e:
+#         return jsonify({
+#             "status": "error",
+#             "message": str(e),
+#             "is_running": assistant_state.is_running
+#         }), 500
 
-@app.route('/api/voice-assistant/confirm', methods=['POST'])
-def confirm_order():
-    """Trigger order confirmation"""
-    try:
-        # This would be handled by the voice assistant thread
-        return jsonify({
-            "status": "success",
-            "message": "Order confirmation requested",
-            "is_running": assistant_state.is_running
-        })
-    except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e),
-            "is_running": assistant_state.is_running
-        }), 500
+# @app.route('/api/voice-assistant/confirm', methods=['POST'])
+# def confirm_order():
+#     """Trigger order confirmation"""
+#     try:
+#         # This would be handled by the voice assistant thread
+#         return jsonify({
+#             "status": "success",
+#             "message": "Order confirmation requested",
+#             "is_running": assistant_state.is_running
+#         })
+#     except Exception as e:
+#         return jsonify({
+#             "status": "error",
+#             "message": str(e),
+#             "is_running": assistant_state.is_running
+#         }), 500
 
-@app.route('/api/voice-assistant/status', methods=['GET'])
-def assistant_status():
-    """Check if assistant is running"""
-    return jsonify({
-        "is_running": assistant_state.is_running,
-        "order_in_progress": assistant_state.order_in_progress,
-        "cart_items": len(assistant_state.cart),
-        "cart_total": assistant_state.cart_total,
-        "user_name": assistant_state.user_name
-    })
+# @app.route('/api/voice-assistant/status', methods=['GET'])
+# def assistant_status():
+#     """Check if assistant is running"""
+#     return jsonify({
+#         "is_running": assistant_state.is_running,
+#         "order_in_progress": assistant_state.order_in_progress,
+#         "cart_items": len(assistant_state.cart),
+#         "cart_total": assistant_state.cart_total,
+#         "user_name": assistant_state.user_name
+#     })
 app.register_blueprint(split_bp, url_prefix='/api/split')
     
 if __name__ == '__main__':
