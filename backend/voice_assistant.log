@@ -924,3 +924,12 @@ pymongo.errors.InvalidOperation: Cannot use MongoClient after close
 2025-06-23 03:22:27,880 - werkzeug - INFO -  * Restarting with stat
 2025-06-23 03:42:24,890 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\itsan\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
 2025-06-23 03:42:24,891 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\itsan\AppData\Local\Programs\Python\Python313\Lib\site-packages\comtypes\gen'
+2025-06-23 03:42:34,207 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.53.125:5000
+2025-06-23 03:42:34,207 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-23 03:43:52,607 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2025 03:43:52] "GET /api/users HTTP/1.1" 200 -
+2025-06-23 03:43:52,928 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2025 03:43:52] "OPTIONS /getBudgetLimit HTTP/1.1" 200 -
+2025-06-23 03:43:54,446 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2025 03:43:54] "GET /api/users HTTP/1.1" 200 -
+2025-06-23 03:44:04,254 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2025 03:44:04] "POST /getBudgetLimit HTTP/1.1" 200 -
