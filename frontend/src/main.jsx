@@ -7,7 +7,7 @@ import { UserProvider } from './context/UserContext'; // ✅ Add this
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/amazonHackon5">
       <UserProvider>
         <App />
       </UserProvider>
