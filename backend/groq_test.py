@@ -1,10 +1,25 @@
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
+# Load all variables from .env
+load_dotenv()
+
+# Access environment variables
+groq_api_key = os.getenv("GROQ_API_KEY")
+mongo_uri = os.getenv("MONGO_URI")
+google_api_key = os.getenv("GOOGLE_API_KEY")
+
+# Print to verify (optional - remove in production)
+# print(mongo_uri, google_api_key)
+
+# Initialize OpenAI client with Groq
 client = OpenAI(
-    api_key="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",  # Replace with your real Groq key
+    api_key=groq_api_key,
     base_url="https://api.groq.com/openai/v1"
 )
 
+# Use the Groq-hosted model
 response = client.chat.completions.create(
     model="llama3-8b-8192",
     messages=[
