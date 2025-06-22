@@ -43,7 +43,8 @@ const Payment = () => {
     const totalPrice = location.state.totalPrice;
 
     // useEffect(() => {
-    //     axios.get("http://localhost:5000/predict")
+    //     axios.get("https://amazonhackon5.onrender.com
+/predict")
     //     .then((response) => {
     //         setPayment(response.data['recommended_payment_method']);
     //         console.log(response);
@@ -138,7 +139,8 @@ const Payment = () => {
         const serviceFee = parseFloat((discountAmount * 0.05).toFixed(2));
         const escrowAmount = parseFloat((userB_payment + commission + serviceFee).toFixed(2));
 
-        axios.post("http://localhost:5000/api/powercard/request", {
+        axios.post("https://amazonhackon5.onrender.com
+/api/powercard/request", {
             userA: currentUserId,
             card: selectedCard,
             productPrice: totalPrice,
@@ -188,7 +190,8 @@ const Payment = () => {
             alert('Please select a payment method');
             return;
         }
-        axios.post("http://localhost:5000/checkout", { cartItems, paymentMethod })
+        axios.post("https://amazonhackon5.onrender.com
+/checkout", { cartItems, paymentMethod })
         .then((response) => {
             console.log(response); 
             setCartItems(getDefaultCart());

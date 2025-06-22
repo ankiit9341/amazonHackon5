@@ -8,7 +8,8 @@ export const UserProvider = ({ children }) => {
   const [currentUserId, setCurrentUserId] = useState("userA");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/users")
+    axios.get("https://amazonhackon5.onrender.com
+/api/users")
       .then(res => setUsers(res.data))
       .catch(err => console.error("Failed to fetch users", err));
   }, []);

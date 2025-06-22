@@ -4,7 +4,8 @@ import { UserContext } from "../../context/UserContext";
 
 // Axios instance
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/split",
+  baseURL: "https://amazonhackon5.onrender.com
+/api/split",
 });
 
 export default function SplitRequests() {

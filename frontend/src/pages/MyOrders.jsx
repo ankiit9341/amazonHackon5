@@ -9,7 +9,8 @@ const MyOrders = () => {
   useEffect(() => {
     if (!currentUser?.userId) return;
 
-    axios.get(`http://localhost:5000/api/powercard/my-orders/${currentUser.userId}`)
+    axios.get(`https://amazonhackon5.onrender.com
+/api/powercard/my-orders/${currentUser.userId}`)
       .then(res => setOrders(res.data))
       .catch(err => console.error("Failed to load orders", err));
   }, [currentUser]);

@@ -24,7 +24,8 @@ const Budget = () => {
   }, [userId]);
 
   const fetchBudget = () => {
-    axios.post("http://localhost:5000/getBudgetLimit", { user_id: userId })
+    axios.post("https://amazonhackon5.onrender.com
+/getBudgetLimit", { user_id: userId })
       .then((res) => {
         const { budget_limit, spend_amount } = res.data;
         setSpendAmount(spend_amount);
@@ -52,7 +53,8 @@ const Budget = () => {
     }
 
     const formattedDate = selectedDate?.toISOString().slice(0, 19).replace('T', ' ');
-    axios.post("http://localhost:5000/budgetLimit", {
+    axios.post("https://amazonhackon5.onrender.com
+/budgetLimit", {
       user_id: userId,
       amount: budgetAmount,
       valid_till: formattedDate
@@ -69,7 +71,8 @@ const Budget = () => {
 
   const handleReset = () => {
     if (window.confirm("Are you sure you want to reset the budget?")) {
-      axios.post("http://localhost:5000/resetBudget", { user_id: userId })
+      axios.post("https://amazonhackon5.onrender.com
+/resetBudget", { user_id: userId })
         .then(() => {
           setBudgetAmount('');
           setSelectedDate(null);

@@ -28,13 +28,15 @@ const history = currentUser
   useEffect(() => {
     if (!currentUserId) return;
 
-    axios.get(`http://localhost:5000/api/powercard/eligible/${currentUserId}`)
+    axios.get(`https://amazonhackon5.onrender.com
+/api/powercard/eligible/${currentUserId}`)
       .then(res => setAvailableRequests(res.data))
       .catch(err => console.error("Failed to load eligible requests", err));
   }, [currentUserId]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/powercard/all")
+    axios.get("https://amazonhackon5.onrender.com
+/api/powercard/all")
       .then((res) => {
         setAllRequests(res.data);
       })
@@ -47,7 +49,8 @@ const history = currentUser
   useEffect(() => {
     if (!currentUser?.userId) return;
     
-    axios.get(`http://localhost:5000/api/powercard/myrequests/${currentUser.userId}`)
+    axios.get(`https://amazonhackon5.onrender.com
+/api/powercard/myrequests/${currentUser.userId}`)
       .then((res) => {
         setMyRequests(res.data);
       })
@@ -251,13 +254,15 @@ const history = currentUser
                     <button
                       className="py-2 px-4 bg-yellow-400 hover:bg-yellow-500 rounded-md text-sm"
                       onClick={() => {
-                        axios.post(`http://localhost:5000/api/powercard/pay-escrow/${request.id}`)
+                        axios.post(`https://amazonhackon5.onrender.com
+/api/powercard/pay-escrow/${request.id}`)
 
                           .then(() => {
                             alert("💰 Escrow payment successful");
                             setSelectedRequest(null); // close modal
                             // 🔄 Re-fetch requests
-                            axios.get(`http://localhost:5000/api/powercard/myrequests/${currentUser.userId}`)
+                            axios.get(`https://amazonhackon5.onrender.com
+/api/powercard/myrequests/${currentUser.userId}`)
                               .then(res => setMyRequests(res.data));
                           })
                           .catch(() => alert("❌ Escrow payment failed"));
@@ -424,7 +429,8 @@ const history = currentUser
                         <button
                           className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md"
                           onClick={() => {
-                            axios.post(`http://localhost:5000/api/powercard/pay-merchant/${request.id}`)
+                            axios.post(`https://amazonhackon5.onrender.com
+/api/powercard/pay-merchant/${request.id}`)
                               .then(() => {
                                 alert("✅ Payment successful, transaction complete.");
                                 // Optionally refetch allRequests here
@@ -514,7 +520,8 @@ const history = currentUser
                               <button 
                                 className="flex-1 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
                                 onClick={() => {
-                                  axios.post(`http://localhost:5000/api/powercard/accept/${selectedRequest.id}`, {
+                                  axios.post(`https://amazonhackon5.onrender.com
+/api/powercard/accept/${selectedRequest.id}`, {
                                     userB: currentUser.userId
                                   })
                                   .then(() => {
@@ -554,17 +561,20 @@ const history = currentUser
                             <button 
                               className="flex-1 py-3 bg-yellow-400 hover:bg-yellow-500 rounded-md"
                               onClick={() => {
-                                axios.post(`http://localhost:5000/api/powercard/pay-escrow/${selectedRequest.id}`)
+                                axios.post(`https://amazonhackon5.onrender.com
+/api/powercard/pay-escrow/${selectedRequest.id}`)
 
 
                                   .then(() => {
                                     alert("💰 Escrow payment successful");
 
                                     // Refresh data to reflect escrow status
-                                    axios.get("http://localhost:5000/api/powercard/all")
+                                    axios.get("https://amazonhackon5.onrender.com
+/api/powercard/all")
                                       .then(res => setAllRequests(res.data));
 
-                                    axios.get(`http://localhost:5000/api/powercard/myrequests/${currentUser.userId}`)
+                                    axios.get(`https://amazonhackon5.onrender.com
+/api/powercard/myrequests/${currentUser.userId}`)
                                       .then(res => setMyRequests(res.data));
 
                                     setSelectedRequest(null); // Close modal
@@ -581,12 +591,14 @@ const history = currentUser
                             <button 
                               className="flex-1 py-3 bg-green-500 hover:bg-green-600 text-white rounded-md"
                               onClick={() => {
-                                axios.post(`http://localhost:5000/api/powercard/pay-merchant/${selectedRequest.id}`)
+                                axios.post(`https://amazonhackon5.onrender.com
+/api/powercard/pay-merchant/${selectedRequest.id}`)
                                   .then(() => {
                                     alert("✅ Transaction completed. Commission received.");
 
                                     // Refresh data
-                                    axios.get("http://localhost:5000/api/powercard/all")
+                                    axios.get("https://amazonhackon5.onrender.com
+/api/powercard/all")
                                       .then(res => setAllRequests(res.data));
 
                                     setSelectedRequest(null); // Close modal

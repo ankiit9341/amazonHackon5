@@ -26,7 +26,8 @@
 
 //   const checkAssistantStatus = async () => {
 //     try {
-//       const res = await axios.get("http://localhost:5000/api/voice-assistant/status");
+//       const res = await axios.get("https://amazonhackon5.onrender.com
+/api/voice-assistant/status");
 //       setIsRunning(res.data.is_running);
 //       setCartInfo({
 //         items: res.data.cart_items || 0,
@@ -52,7 +53,8 @@
 //       setStatus("Starting voice assistant...");
 //       setError("");
       
-//       const res = await axios.post("http://localhost:5000/api/voice-assistant/start");
+//       const res = await axios.post("https://amazonhackon5.onrender.com
+/api/voice-assistant/start");
       
 //       setIsRunning(true);
 //       setStatus("🎙️ Voice assistant started! Listening for your commands...");
@@ -71,7 +73,8 @@
 //       setIsLoading(true);
 //       setStatus("Stopping voice assistant...");
       
-//       const res = await axios.post("http://localhost:5000/api/voice-assistant/stop");
+//       const res = await axios.post("https://amazonhackon5.onrender.com
+/api/voice-assistant/stop");
       
 //       setIsRunning(false);
 //       setStatus("🛑 Voice assistant stopped");
@@ -219,7 +222,8 @@
 //               {cartInfo.items > 0 && (
 //                 <button
 //                   onClick={() => {
-//                     axios.post("http://localhost:5000/api/voice-assistant/confirm");
+//                     axios.post("https://amazonhackon5.onrender.com
+/api/voice-assistant/confirm");
 //                     setStatus("Confirming your order...");
 //                   }}
 //                   className="flex-1 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md flex items-center justify-center"

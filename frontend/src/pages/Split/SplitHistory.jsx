@@ -11,7 +11,8 @@ export default function SplitHistory() {
     if (!currentUser?.userId) return;
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/split/history/${currentUser.userId}`)
+      .get(`https://amazonhackon5.onrender.com
+/api/split/history/${currentUser.userId}`)
       .then((res) => setHistory(res.data))
       .catch((err) => console.error('Failed to fetch split history', err))
       .finally(() => setLoading(false));

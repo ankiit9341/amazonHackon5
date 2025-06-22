@@ -435,6 +435,11 @@ def get_eligible_requests(user_id):
 
     return jsonify(eligible_requests), 200
 
+@app.route('/')
+def home():
+    return "✅ Backend is running!"
+
+
 @app.route('/api/data', methods=['OPTIONS','POST'])
 def handle_data():
     if request.method == 'OPTIONS':
