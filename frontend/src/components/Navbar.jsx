@@ -1,10 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 import amazonLogo from '../assets/amazon-logo.png';
 import cartIcon from '../assets/cart.png';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { User } from "lucide-react"; // icon library
+import amazonFreshLogo from '../assets/amazon-fresh-logo.png';
+import AmazonFresh from "../pages/AmazonFresh";
+import { Route, Link, Routes } from "react-router-dom";
+
+
+<Route path="/fresh" element={<AmazonFresh />} />
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -24,6 +30,15 @@ const Navbar = () => {
         <Link to="/">
           <img className='w-28 h-8' src={amazonLogo} alt="" id="amazon-logo"/>
         </Link>
+        <Link to="/fresh">
+          <div className="w-28 h-8 bg-white rounded-sm flex items-center justify-center">
+            <img
+              className="w-full h-full object-contain"
+              src={amazonFreshLogo}
+              alt="Amazon Fresh"
+            />
+          </div>
+        </Link>
         <div className = 'w-full flex border border-black rounded-md outline-none' >
           <input className = 'w-full outline-none rounded-l-md p-1' type="text" id="search-input" placeholder="Search..."/>
           <button className='w-1 md:w-28 rounded-r-md bg-[#ff9900]' id="search-button">Search</button>
@@ -39,16 +54,7 @@ const Navbar = () => {
           <button onClick={handlePowerCardClick} className='w-18 text-sm h-10 p-1 md:p-2 rounded-md bg-[#ff9900]' id = "navbar-powercard-btn">
             PowerCard
           </button>
-          
-          {/* Dashboard Button */}
-          <Link to='/dashboard'>
-            <button className='w-18 text-sm h-10 p-1 md:p-2 rounded-md bg-[#ff9900]' id = "navbar-dashboard-btn">Dashboard</button>
-          </Link>
-          
-          {/* Chatbot Button */}
-          <a href="https://029e1983bcbb1cdec5.gradio.live">
-            <button className='p-1 md:p-2 rounded-md bg-[#ff9900]' id = "navbar-chatbot-btn">Chatbot</button>
-          </a>
+        
         </div>
 
         <Link to="/cart">

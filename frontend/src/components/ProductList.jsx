@@ -6,9 +6,9 @@ const ProductList = ({ itemsList, addToCart }) => {
   return (
     <div className="product-list">
       {
-        itemsList.map((item) => {
+        itemsList.map((item,index) => {
             return(
-                <div className="product-card">
+                <div className="product-card" key={index}>
                     <img src={boxImg} alt="skjdh" className="product-img"/>
                     <h2>
                         {item.name}
@@ -17,8 +17,8 @@ const ProductList = ({ itemsList, addToCart }) => {
                         <div className="product-price">
                             ${item.price}
                         </div>
-                        <button className="add-to-cart-button" onClick={() => addToCart(item)}>
-                            Add to Cart
+                        <button className="add-to-cart-button" onClick={() => addToCart(index)}>
+                          Add to Cart {cartItems[index] > 0 && <>({cartItems[index]})</>}
                         </button>
                     </div>
                 </div>

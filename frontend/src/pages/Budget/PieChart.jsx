@@ -4,9 +4,10 @@ import { Chart as ChartJS } from "chart.js/auto";
 import './PieChart.css'
 
 const PieChart = ({ spendAmount, remainingAmount }) => {
-    const totalAmount = parseFloat(spendAmount) + parseFloat(remainingAmount);
-  const spendPercentage = ((spendAmount / totalAmount) * 100).toFixed(2);
-  const remainingPercentage = ((remainingAmount / totalAmount) * 100).toFixed(2);
+  const totalAmount = parseFloat(spendAmount) + parseFloat(remainingAmount);
+  const spendPercentage = totalAmount > 0 ? ((spendAmount / totalAmount) * 100).toFixed(2) : 0;
+  const remainingPercentage = totalAmount > 0 ? ((remainingAmount / totalAmount) * 100).toFixed(2) : 0;
+
 
   const data = {
     labels: [`Spend Amount (${spendPercentage}%)`, `Remaining Amount (${remainingPercentage}%)`],

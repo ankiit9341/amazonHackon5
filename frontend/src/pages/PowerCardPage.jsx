@@ -10,10 +10,13 @@ const PowerCardDashboard = () => {
   const [availableRequests, setAvailableRequests] = useState([]); // ✅ keep this one
   const [myRequests, setMyRequests] = useState([]);
 
-  const history = allRequests.filter(
-    r => r.status === 'completed' &&
-    (r.userA?.userId === currentUser.userId || r.userB?.userId === currentUser.userId)
-  );
+const history = currentUser
+  ? allRequests.filter(
+      r => r.status === 'completed' &&
+      (r.userA?.userId === currentUser.userId || r.userB?.userId === currentUser.userId)
+    )
+  : [];
+
   const acceptedRequests = currentUser
   ? allRequests.filter(
       r => r.status === 'accepted' && r.userB?.userId === currentUser.userId

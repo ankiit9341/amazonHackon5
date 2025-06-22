@@ -5,26 +5,44 @@ export const ShopContext = createContext(null);
 
 const getDefaultCart = () => {
   let cart = {};
-  for (let i = 1; i < PRODUCTS.length + 1; i++) {
-    cart[i] = 0;
+  for (const product of PRODUCTS) {
+    cart[product.id] = 0;
   }
   return cart;
 };
 
 export const ShopContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState(getDefaultCart);
-  const addToCart = (itemId) => {
-    setCartItems((prev) => ({...prev, [itemId] : prev[itemId] + 1}))
-  };
-  const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({...prev, [itemId] : prev[itemId] - 1}))
-  };
-  const clear = () =>{
-    setCartItems(getDefaultCart);
-  }
+  const [cartItems, setCartItems] = useState(getDefaultCart());
 
-  const contextValue = {cartItems, addToCart, removeFromCart, setCartItems }
-//   console.log(cartItems);
+  const addToCart = (productId) => {
+    console.log("✅ Adding to cart: ", productId);
+    setCartItems((prev) => ({
+      ...prev,
+      [productId]: prev[productId] + 1,
+    }));
+  };
 
-  return (<ShopContext.Provider value = {contextValue}>{props.children}</ShopContext.Provider>);
+  const removeFromCart = (productId) => {
+    setCartItems((prev) => ({
+      ...prev,
+      [productId]: Math.max(prev[productId] - 1, 0),
+    }));
+  };
+
+  const clearCart = () => {
+    setCartItems(getDefaultCart());
+  };
+
+  const contextValue = {
+    cartItems,
+    addToCart,
+    removeFromCart,
+    clearCart,
+  };
+
+  return (
+    <ShopContext.Provider value={contextValue}>
+      {props.children}
+    </ShopContext.Provider>
+  );
 };
