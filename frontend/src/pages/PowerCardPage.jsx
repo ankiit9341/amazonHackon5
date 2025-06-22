@@ -28,15 +28,13 @@ const history = currentUser
   useEffect(() => {
     if (!currentUserId) return;
 
-    axios.get(`https://amazonhackon5.onrender.com
-/api/powercard/eligible/${currentUserId}`)
+    axios.get(`https://amazonhackon5.onrender.com/api/powercard/eligible/${currentUserId}`)
       .then(res => setAvailableRequests(res.data))
       .catch(err => console.error("Failed to load eligible requests", err));
   }, [currentUserId]);
 
   useEffect(() => {
-    axios.get("https://amazonhackon5.onrender.com
-/api/powercard/all")
+    axios.get("https://amazonhackon5.onrender.com/api/powercard/all")
       .then((res) => {
         setAllRequests(res.data);
       })
@@ -49,8 +47,7 @@ const history = currentUser
   useEffect(() => {
     if (!currentUser?.userId) return;
     
-    axios.get(`https://amazonhackon5.onrender.com
-/api/powercard/myrequests/${currentUser.userId}`)
+    axios.get(`https://amazonhackon5.onrender.com/api/powercard/myrequests/${currentUser.userId}`)
       .then((res) => {
         setMyRequests(res.data);
       })
@@ -561,20 +558,17 @@ const history = currentUser
                             <button 
                               className="flex-1 py-3 bg-yellow-400 hover:bg-yellow-500 rounded-md"
                               onClick={() => {
-                                axios.post(`https://amazonhackon5.onrender.com
-/api/powercard/pay-escrow/${selectedRequest.id}`)
+                                axios.post(`https://amazonhackon5.onrender.com/api/powercard/pay-escrow/${selectedRequest.id}`)
 
 
                                   .then(() => {
                                     alert("💰 Escrow payment successful");
 
                                     // Refresh data to reflect escrow status
-                                    axios.get("https://amazonhackon5.onrender.com
-/api/powercard/all")
+                                    axios.get("https://amazonhackon5.onrender.com/api/powercard/all")
                                       .then(res => setAllRequests(res.data));
 
-                                    axios.get(`https://amazonhackon5.onrender.com
-/api/powercard/myrequests/${currentUser.userId}`)
+                                    axios.get(`https://amazonhackon5.onrender.com/api/powercard/myrequests/${currentUser.userId}`)
                                       .then(res => setMyRequests(res.data));
 
                                     setSelectedRequest(null); // Close modal
@@ -591,14 +585,12 @@ const history = currentUser
                             <button 
                               className="flex-1 py-3 bg-green-500 hover:bg-green-600 text-white rounded-md"
                               onClick={() => {
-                                axios.post(`https://amazonhackon5.onrender.com
-/api/powercard/pay-merchant/${selectedRequest.id}`)
+                                axios.post(`https://amazonhackon5.onrender.com/api/powercard/pay-merchant/${selectedRequest.id}`)
                                   .then(() => {
                                     alert("✅ Transaction completed. Commission received.");
 
                                     // Refresh data
-                                    axios.get("https://amazonhackon5.onrender.com
-/api/powercard/all")
+                                    axios.get("https://amazonhackon5.onrender.com/api/powercard/all")
                                       .then(res => setAllRequests(res.data));
 
                                     setSelectedRequest(null); // Close modal

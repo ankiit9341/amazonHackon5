@@ -112,8 +112,7 @@ export default function SplitCalculator() {
 
     try {
       // POST to your backend
-      await axios.post('https://amazonhackon5.onrender.com
-/api/split/expenses', {
+      await axios.post('https://amazonhackon5.onrender.com/api/split/expenses', {
         title,
         description,
         amount: parseFloat(totalAmount),

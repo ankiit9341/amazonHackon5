@@ -25,8 +25,7 @@ export const Cart = () => {
       alert("🛒 Your cart is empty. Please add items to continue.");
       return;
     }
-    axios.post("https://amazonhackon5.onrender.com
-/api/data", { totalPrice })
+    axios.post("https://amazonhackon5.onrender.com/api/data", { totalPrice })
       .then(() => {
         navigate('/pay', { state: { totalPrice } });
       })
