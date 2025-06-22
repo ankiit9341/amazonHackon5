@@ -22,7 +22,7 @@ export default function SplitDashboard() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex w-full bg-gray-100">
       {/* Sidebar */}
       <aside className="w-80 bg-white border-r border-gray-200 p-8 flex-shrink-0 flex flex-col">
         <h1 className="text-3xl font-extrabold text-indigo-600 mb-10">Split Bills</h1>

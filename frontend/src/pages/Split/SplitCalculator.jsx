@@ -5,6 +5,7 @@ import axios from 'axios';
 export default function SplitCalculator() {
   const { users, currentUser } = useContext(UserContext);
 
+  // Show loading state until currentUser is available
   if (!currentUser) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -13,44 +14,50 @@ export default function SplitCalculator() {
     );
   }
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [totalAmount, setTotalAmount] = useState('');
+  // Form state
+  const [title, setTitle]               = useState('');
+  const [description, setDescription]   = useState('');
+  const [totalAmount, setTotalAmount]   = useState('');
   const [selectedUserId, setSelectedUserId] = useState('');
-  const [selectedUsers, setSelectedUsers] = useState([]);
-  const [customAmounts, setCustomAmounts] = useState({});
+  const [selectedUsers, setSelectedUsers]   = useState([]);
+  const [customAmounts, setCustomAmounts]   = useState({});
   const [calculatedShares, setCalculatedShares] = useState({});
 
+  // NEW: Fraud warnings to show the user
+  const [fraudWarnings, setFraudWarnings] = useState([]);
+
+  // Recompute shares whenever inputs change
   useEffect(() => {
     const total = parseFloat(totalAmount);
-    if (!total || selectedUsers.length < 1 || !currentUser.userId) {
+    if (!total || selectedUsers.length < 1) {
       setCalculatedShares({});
       return;
     }
 
     const participants = [currentUser.userId, ...selectedUsers];
-
-    const customTotal = Object.entries(customAmounts)
-      .reduce((sum, [_, val]) => sum + (val || 0), 0);
-
+    const customTotal = Object.values(customAmounts).reduce(
+      (sum, v) => sum + (v || 0),
+      0
+    );
     const remainingCount = participants.filter(
       (uid) => customAmounts[uid] == null
     ).length;
-
     const evenShare = remainingCount > 0
       ? (total - customTotal) / remainingCount
       : 0;
 
     const shares = {};
     participants.forEach((uid) => {
-      shares[uid] = customAmounts[uid] != null
-        ? customAmounts[uid]
-        : parseFloat(evenShare.toFixed(2));
+      shares[uid] =
+        customAmounts[uid] != null
+          ? customAmounts[uid]
+          : parseFloat(evenShare.toFixed(2));
     });
 
     setCalculatedShares(shares);
   }, [selectedUsers, customAmounts, totalAmount, currentUser.userId]);
 
+  // Handlers for adding/removing participants & custom amounts
   const handleAddUser = () => {
     if (
       selectedUserId &&
@@ -79,11 +86,17 @@ export default function SplitCalculator() {
     }));
   };
 
+  // Submission handler
   const handleSend = async () => {
+    // Clear previous warnings
+    setFraudWarnings([]);
+
+    // Basic validation
     if (!title || !description || !totalAmount || selectedUsers.length === 0) {
       return alert('Please fill all fields and add at least one participant.');
     }
 
+    // Build members payload
     const members = [
       {
         user_id: currentUser.userId,
@@ -98,6 +111,7 @@ export default function SplitCalculator() {
     ];
 
     try {
+      // POST to your backend
       await axios.post('http://localhost:5000/api/split/expenses', {
         title,
         description,
@@ -106,24 +120,43 @@ export default function SplitCalculator() {
         members,
       });
 
-      // Optional: deduct payer's balance immediately if you choose
-      // await axios.post('http://localhost:5000/api/split/deduct-payer', { payer_id: currentUser.userId, amount: totalAmount });
-
-      alert('Expense shared successfully!');
+      // On success, reset form
+      alert('✅ Expense shared successfully!');
       setTitle('');
       setDescription('');
       setTotalAmount('');
       setSelectedUsers([]);
       setCustomAmounts({});
     } catch (err) {
+      // If backend returned fraud_flags on a 400, extract and show them
+      const data = err.response?.data;
+      if (err.response?.status === 400 && data?.fraud_flags) {
+        const warnings = [];
+        if (data.error) warnings.push(data.error);                            // Backend message
+        if (data.fraud_flags.duplicate)  warnings.push("Duplicate expense detected.");
+        if (data.fraud_flags.high_value) warnings.push("High-value expense flagged.");
+        setFraudWarnings(warnings);
+        return;  // Don't reset form
+      }
+
+      // Other errors
       console.error(err);
-      alert('Error submitting expense.');
+      alert('❌ Error submitting expense.');
     }
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Split Expense</h2>
+
+      {/* Fraud warning banner */}
+      {fraudWarnings.length > 0 && (
+        <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded">
+          {fraudWarnings.map((msg, i) => (
+            <p key={i}>⚠️ {msg}</p>
+          ))}
+        </div>
+      )}
 
       <div className="space-y-4">
         <input
@@ -136,7 +169,7 @@ export default function SplitCalculator() {
 
         <input
           type="text"
-          placeholder="Description (e.g. at Domino\u2019s)"
+          placeholder="Description (e.g. at Domino’s)"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="w-full p-3 border rounded-lg"
@@ -144,7 +177,7 @@ export default function SplitCalculator() {
 
         <input
           type="number"
-          placeholder="Total Amount (\u20B9)"
+          placeholder="Total Amount (₹)"
           value={totalAmount}
           onChange={(e) => setTotalAmount(e.target.value)}
           className="w-full p-3 border rounded-lg"
@@ -176,8 +209,28 @@ export default function SplitCalculator() {
           </button>
         </div>
 
-        {selectedUsers.length > 0 && (
+        {(selectedUsers.length > 0 || totalAmount) && (
           <div className="mt-4 space-y-3">
+            {/* “You” always shown */}
+            <div className="flex items-center gap-4 bg-gray-50 p-3 rounded-lg">
+              <span className="flex-1 font-medium">
+                You ({currentUser.userId})
+              </span>
+              <input
+                type="number"
+                placeholder="Custom ₹"
+                className="w-24 p-2 border rounded-md"
+                value={customAmounts[currentUser.userId] ?? ''}
+                onChange={(e) =>
+                  handleCustomChange(currentUser.userId, e.target.value)
+                }
+              />
+              <span className="text-sm text-gray-500">
+                Share: ₹{calculatedShares[currentUser.userId]?.toFixed(2) ?? '0.00'}
+              </span>
+            </div>
+
+            {/* Other participants */}
             {selectedUsers.map((uid) => {
               const user = users.find((u) => u.userId === uid);
               return (
@@ -190,15 +243,13 @@ export default function SplitCalculator() {
                   </span>
                   <input
                     type="number"
-                    placeholder="Custom \u20B9"
+                    placeholder="Custom ₹"
                     className="w-24 p-2 border rounded-md"
                     value={customAmounts[uid] ?? ''}
-                    onChange={(e) =>
-                      handleCustomChange(uid, e.target.value)
-                    }
+                    onChange={(e) => handleCustomChange(uid, e.target.value)}
                   />
                   <span className="text-sm text-gray-500">
-                    Share: \u20B9{calculatedShares[uid]?.toFixed(2) ?? '0.00'}
+                    Share: ₹{calculatedShares[uid]?.toFixed(2) ?? '0.00'}
                   </span>
                   <button
                     onClick={() => handleRemoveUser(uid)}

@@ -3,7 +3,7 @@ import SplitDashboard from './SplitDashboard'
 
 function SplitBill() {
   return (
-    <div>
+    <div className='size-fit w-full'>
       <SplitDashboard />
     </div>
   )

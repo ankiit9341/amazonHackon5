@@ -8,7 +8,7 @@ export default function SplitSideBar({ active, onSelect }) {
   ];
 
   return (
-    <div className="w-48 bg-white rounded-2xl shadow-lg p-4 flex flex-col space-y-2">
+    <div className="w-full bg-white rounded-2xl shadow-lg p-4 flex flex-col space-y-2">
       <h2 className="text-lg font-semibold mb-2">Menu</h2>
       {items.map(item => (
         <button
