@@ -53,6 +53,10 @@ x = datetime.datetime.now()
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, 
+     origins=["http://localhost:5173"], 
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+     supports_credentials=True)
 
 PRODUCTS = [
     {
@@ -427,6 +431,18 @@ def get_eligible_requests(user_id):
             eligible_requests.append(req)
 
     return jsonify(eligible_requests), 200
+
+@app.route('/api/data', methods=['OPTIONS','POST'])
+def handle_data():
+    if request.method == 'OPTIONS':
+        return '', 200
+    payload = request.get_json()
+    # ↳ store it however you like, e.g.:
+    db.cart.insert_one({
+      "totalPrice": payload.get("totalPrice"),
+      "created_at": time.time()
+    })
+    return jsonify({"message": "OK"}), 200
 
 
 @app.route("/api/users", methods=["GET"])
